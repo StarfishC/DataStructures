@@ -34,4 +34,5 @@ int main(){
         cout << pos[i]+1 <<" ";
     }
     cout << endl;
+    return 0;
 }
