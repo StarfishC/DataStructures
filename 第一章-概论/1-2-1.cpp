@@ -20,7 +20,6 @@ class strings{
         strings(string s){str = s;};
 };
 
-bool compare(strings a, strings b);
 
 class ArrList{
     private:
@@ -28,7 +27,7 @@ class ArrList{
         int curlen;
     public:
         ArrList(){
-            curlen = 0; 
+            curlen = 0;
             aList = NULL;
         }
         int length(){return curlen;}        // 链表长度
@@ -38,18 +37,16 @@ class ArrList{
             if(a-b == 0) ret = 0;
 
             // 2. a,b都属于A-Z或都属于0-9
-            if(((a-'A' >= 0) && (b-'A' >= 0)) || ((a-'A' <= 0) && (b-'A' <= 0))){
+            if(((a-'A' >= 0) && (b-'A' >= 0)) || ((a-'A' < 0) && (b-'A' < 0))){
                 if(a-b > 0) ret = 1;
             }else{
                 if(a-b > 0) ret = -1;
             }
             return ret;
         }
-        bool compare(strings *a, strings *b){
-            string i = a->str;
-            string j = b->str;
-            for(int k = 0; i[k] && j[k]; k++){
-                int ret = compareStr(i[k], j[k]);
+        bool compare(string a, string b){
+            for(int k = 0; a[k] && b[k]; k++){
+                int ret = compareStr(a[k], b[k]);
                 if(ret == 0) continue;
                 if(ret == 1) return true;
                 if(ret == -1) return false;
@@ -61,7 +58,7 @@ class ArrList{
             strings *previous = NULL;
             bool stop = false;
             while(current != NULL && not stop){
-                if(compare(current, s))
+                if(compare(current->str, s->str) == true)
                     stop = true;
                 else{
                     previous = current;
@@ -91,7 +88,7 @@ int main(){
     strings a[8] = {strings("ABC"), strings("5C"), strings("PABC"), strings("CXY"),
                     strings("CRSI"), strings("7"), strings("B899"), strings("B9")};
     ArrList list = ArrList();
-    for(int i = 0; i < 4; i++){
+    for(int i = 0; i < 8; i++){
         list.append(&a[i]);
     }
     list.printAll();
