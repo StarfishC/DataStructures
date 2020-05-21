@@ -186,3 +186,34 @@ void LnkList<T>::showAll(){
 }
 
 
+
+/********************************* 双链表  *****************************/
+
+template <typename T>
+class DLink{
+    public:
+        T data;
+        DLink<T> *prev;                 // 指向前驱节点的指针
+        DLink<T> *next;                 // 指向后继节点的指针
+        DLink(const T info, DLink<T> *preValue=NULL, DLink<T> *nextValue=NULL){
+            data = info;
+            prev = preValue;
+            next = nextValue;
+        }
+        DLink(DLink<T> *preValue=NULL, DLink<T> *nextValue=NULL){
+            next = nextValue;
+            prev = preValue;
+        }
+};
+
+
+template <typename T>
+class DLnkList{
+    private:
+        DLink<T> *head, tail;
+        DLink<T> *setPos(const int p);          // 指向第p个元素的指针
+    public:
+        DLnkList(){
+            head = tail = new DLink<T>(NULL, NULL);
+        }
+};
