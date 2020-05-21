@@ -44,7 +44,7 @@ class LnkList{
 
 template <typename T>
 LnkList<T>::LnkList(){
-    head = tail = new Link<T>;
+    head = tail = new Link<T>();
 }
 
 template <typename T>
@@ -60,8 +60,9 @@ LnkList<T>::~LnkList(){
 template <typename T>
 Link<T>* LnkList<T>::setPos(const int p){
     int count = 0;
-    if(p == 0)                                 // i为0则定位头节点
+    if(p == 0){
         return head;
+    }
     Link<T> *tmp = new Link<T>(head->next);
     while(tmp != NULL && count < p){
         tmp = tmp->next;
@@ -84,7 +85,7 @@ void LnkList<T>::clear(){
 template <typename T>
 int LnkList<T>::length(){
     int count = 0;
-    Link<T> *tmp = head;
+    Link<T> *tmp = head->next;
     while(tmp != NULL){
         count ++;
         tmp = tmp->next;
@@ -97,7 +98,8 @@ bool LnkList<T>::append(const T value){
     Link<T> *tmp;
     tmp = new Link<T>(value, NULL);
     if(head == tail){                           // 没有元素
-        head = tail = tmp;
+        head->next = tmp;
+        tail = tmp;
     }else{
         tail->next = tmp;
         tail = tmp;
@@ -114,6 +116,7 @@ bool LnkList<T>::insert(const int p, const T value){
         cout << "Insertion point is illegal" << endl;
         return false;
     }
+    cout << pre->data << endl;
     q = new Link<T>(value, pre->next);
     pre->next = q;
     if(pre == tail)
@@ -126,7 +129,7 @@ bool LnkList<T>::remove(const int p){
     using std::cout;
     using std::endl;
     Link<T> *pre, *q;
-    if((pre == setPos(p-1)) == NULL || pre == tail){
+    if((pre = setPos(p-1)) == NULL || pre == tail){
         cout << "Removal point is illegal" << endl;
         return false;
     }
@@ -144,7 +147,7 @@ bool LnkList<T>::remove(const int p){
 
 template <typename T>
 bool LnkList<T>::getPos(int &p, const T value){
-    Link<T> *tmp = head;
+    Link<T> *tmp = head->next;
     int count = 0;
     while(tmp != NULL){
         count ++;
@@ -172,15 +175,14 @@ bool LnkList<T>::getValue(const int p, T &value){
 
 template <typename T>
 void LnkList<T>::showAll(){
-    Link<T> *tmp = head;
+    using std::cout;
+    using std::endl;
+    Link<T> *tmp = head->next;
     while(tmp != NULL){
-
+        cout << tmp->data << " ";
+        tmp = tmp->next;
     }
+    cout << endl;
 }
 
 
-int main(){
-    LnkList<int> tmp = LnkList<int>();
-    tmp.append(1);
-    tmp.showAll();
-}
