@@ -116,7 +116,6 @@ bool LnkList<T>::insert(const int p, const T value){
         cout << "Insertion point is illegal" << endl;
         return false;
     }
-    cout << pre->data << endl;
     q = new Link<T>(value, pre->next);
     pre->next = q;
     if(pre == tail)
