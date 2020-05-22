@@ -35,7 +35,7 @@ class Node(object):
 
     def setNext(self, nextNode):
         """设置下一个节点对象
-        
+
         :param nextNode Node对象
         """
         self.__next = nextNode
@@ -60,17 +60,17 @@ class UnOrderedList(object):
         :return Node对象
         """
         count = 1;
-        if p < 0:
+        if p <= 0:
             return None
         temp = self.__head
-        while count <= p and temp != None:
+        while count < p and temp != None:
             count += 1
             temp = temp.getNext()
         return temp
 
     def isEmpty(self):
         """判断链表是否为空
-        
+
         return bool
         """
         return self.__head == None
@@ -107,24 +107,30 @@ class UnOrderedList(object):
             print("Insertion point is illegal")
             return
         previous = self.setPos(num-1)
-        current = previous.getNext()
         temp = Node(item)
-        temp.setNext(current)
-        previous.setNext(temp)
+        if previous == None:
+            # 此时num-1=0，即插入到头节点
+            temp.setNext(self.__head)
+            self.__head = temp
+        else:
+            current = previous.getNext()
+            temp.setNext(current)
+            previous.setNext(temp)
 
     def remove(self, p):
         """移除位置为p的元素
 
         :param p int
         """
-        previous = self.setPos(p-1)
-        if previous == None:
+        if p <= 0 or p > self.length():
             print("Removal point is illegal")
-            return False
-        current = previous.getNext()
-        if current == None:
-            print("Removal point is illegal")
-        previous.setNext(current.getNext())
+            return
+        if p == 1:
+            self.__head = self.__head.getNext()
+        else:
+            previous = self.setPos(p-1)
+            current = previous.getNext()
+            previous.setNext(current.getNext())
 
     def getPos(self, value):
         """查找value元素是否存在
@@ -135,7 +141,7 @@ class UnOrderedList(object):
         current = self.__head
         found = False
         while current != None and not found:
-            if current.getData() == item:
+            if current.getData() == value:
                 found = True
             else:
                 current = current.getNext()
@@ -161,11 +167,3 @@ class UnOrderedList(object):
             tmp = tmp.getNext()
 
 
-if __name__ == "__main__":
-    lb = UnOrderedList()
-    lb.append(1)
-    lb.append(2)
-    lb.insert(1, 3)
-    lb.showAll()
-    print("getvalue", lb.getValue(1))
-    print("length:", lb.length())
