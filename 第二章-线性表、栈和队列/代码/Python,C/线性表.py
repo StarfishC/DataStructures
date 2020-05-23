@@ -76,7 +76,7 @@ class UnOrderedList(object):
         return self.__head == None
 
     def length(self):
-        """元素的长度
+        """链表的长度
 
         :return int
         """
@@ -95,7 +95,6 @@ class UnOrderedList(object):
         temp = Node(value)
         temp.setNext(self.__head)
         self.__head = temp
-
 
     def insert(self, num, item):
         """第num个位置插入节点元素
@@ -165,5 +164,99 @@ class UnOrderedList(object):
         while tmp != None:
             print(tmp.getData())
             tmp = tmp.getNext()
+
+
+class OrderedList(object):
+    """有序链表"""
+    def __init__(self):
+        """初始化头节点"""
+        self.__head = None
+
+    def isEmpty(self):
+        """判断链表是否为空
+
+        :return bool
+        """
+        return self.__head == None
+
+    def length(self):
+        """链表的长度
+        
+        :return int
+        """
+        count = 0
+        temp = self.__head
+        while temp != None:
+            count += 1
+            temp = temp.getNext()
+        return count
+
+    def append(self, value):
+        """添加一个元素
+
+        :param value 元素值
+        """
+        current = self.__head
+        previous = None
+        stop = False
+        while current != None and not stop:
+            if current.getData() > value:
+                stop = True
+            else:
+                previous = current
+                current = current.getNext()
+        temp = Node(value)
+        if previous == None:
+            # 当前没有元素
+            temp.setNext(self.__head)
+            self.__head = temp
+        else:
+            temp.setNext(current)
+            previous.setNext(temp)
+
+    def remove(self, item):
+        """移除原始值为item的节点
+
+        :param item 要移除的节点的元素值
+        """
+        current = self.__head
+        previous = None
+        found = False
+        while not found:
+            if current.getData() == item:
+                found = True
+            else:
+                previous = current
+                current = current.getNext()
+        if previous == None:
+            self.__head = current.getNext()
+        else:
+            previous.setNext(current.getNext())
+
+    def find(self, value):
+        """查找元素值是否存在
+
+        :param value 节点元素值
+        :return bool
+        """
+        current = self.__head
+        found = False
+        stop = False
+        while current != None and not found and not stop:
+            if current.getData() == value:
+                found = True
+            else:
+                if current.getData() > value:
+                    stop = True
+                else:
+                    current = current.getNext()
+        return found
+
+    def showAll(self):
+        current = self.__head
+        while current != None:
+            print(current.getData(), end=" ")
+            current = current.getNext()
+        print()
 
 
