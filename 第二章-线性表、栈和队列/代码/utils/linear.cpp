@@ -5,7 +5,7 @@
 
 #include <cstdlib>
 #include <iostream>
-#include "linear.h"
+#include "linear.hpp"
 
 
 // ************************** 线性表的顺序存储 *********************************//
@@ -125,12 +125,12 @@ void ArrList<T>::showAll(){
 // ************************** 线性表的链式存储 *********************************//
 
 template <typename T>
-LnkList<T>::LnkList(){
+LinkList<T>::LinkList(){
     head = tail = new Link<T>();
 }
 
 template <typename T>
-LnkList<T>::~LnkList(){
+LinkList<T>::~LinkList(){
     Link<T> *tmp;
     while(head != NULL){
         tmp = head;
@@ -140,7 +140,7 @@ LnkList<T>::~LnkList(){
 }
 
 template <typename T>
-Link<T>* LnkList<T>::setPos(const int p){
+Link<T>* LinkList<T>::setPos(const int p){
     int count = 0;
     if(p == 0){
         return head;
@@ -154,7 +154,7 @@ Link<T>* LnkList<T>::setPos(const int p){
 }
 
 template <typename T>
-void LnkList<T>::clear(){
+void LinkList<T>::clear(){
     Link<T> *tmp;
     while(head != NULL){
         tmp = head;
@@ -165,7 +165,7 @@ void LnkList<T>::clear(){
 }
 
 template <typename T>
-int LnkList<T>::length(){
+int LinkList<T>::length(){
     int count = 0;
     Link<T> *tmp = head->next;
     while(tmp != NULL){
@@ -176,7 +176,7 @@ int LnkList<T>::length(){
 }
 
 template <typename T>
-bool LnkList<T>::append(const T value){
+bool LinkList<T>::append(const T value){
     Link<T> *tmp;
     tmp = new Link<T>(value, NULL);
     if(head == tail){                           // 没有元素
@@ -190,7 +190,7 @@ bool LnkList<T>::append(const T value){
 }
 
 template <typename T>
-bool LnkList<T>::insert(const int p, const T value){
+bool LinkList<T>::insert(const int p, const T value){
     using std::cout;
     using std::endl;
     Link<T> *pre, *q;
@@ -206,7 +206,7 @@ bool LnkList<T>::insert(const int p, const T value){
 }
 
 template <typename T>
-bool LnkList<T>::remove(const int p){
+bool LinkList<T>::remove(const int p){
     using std::cout;
     using std::endl;
     Link<T> *pre, *q;
@@ -227,7 +227,7 @@ bool LnkList<T>::remove(const int p){
 }
 
 template <typename T>
-bool LnkList<T>::getPos(int &p, const T value){
+bool LinkList<T>::getPos(int &p, const T value){
     Link<T> *tmp = head->next;
     int count = 0;
     while(tmp != NULL){
@@ -242,7 +242,7 @@ bool LnkList<T>::getPos(int &p, const T value){
 }
 
 template <typename T>
-bool LnkList<T>::getValue(const int p, T &value){
+bool LinkList<T>::getValue(const int p, T &value){
     using std::cout;
     using std::endl;
     Link<T> *tmp;
@@ -255,7 +255,7 @@ bool LnkList<T>::getValue(const int p, T &value){
 }
 
 template <typename T>
-void LnkList<T>::showAll(){
+void LinkList<T>::showAll(){
     using std::cout;
     using std::endl;
     Link<T> *tmp = head->next;
