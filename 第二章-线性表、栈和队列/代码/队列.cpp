@@ -95,14 +95,14 @@ bool ArrQueue<T>::getFront(T &item){
 
 // ****************************** 队列的链式存储 *******************************//
 template <typename T>
-class LnkQueue{
+class LinkQueue{
     private:
         int size;                   // 队列的元素个数
         Link<T> *front;             // 队首指针
         Link<T> *rear;              // 队尾指针
     public:
-        LnkQueue();
-        ~LnkQueue();
+        LinkQueue();
+        ~LinkQueue();
         void clear();               // 清空队列元素
         bool enQueue(const T item); // 入队
         bool deQueue(T &item);      // 出队
@@ -111,18 +111,18 @@ class LnkQueue{
 };
 
 template <typename T>
-LnkQueue<T>::LnkQueue(){
+LinkQueue<T>::LinkQueue(){
     size = 0;
     front = rear = NULL;
 }
 
 template <typename T>
-LnkQueue<T>::~LnkQueue(){
+LinkQueue<T>::~LinkQueue(){
     clear();
 }
 
 template <typename T>
-void LnkQueue<T>::clear(){
+void LinkQueue<T>::clear(){
     while(front != NULL){
         rear = front;
         front = front->next;
@@ -133,7 +133,7 @@ void LnkQueue<T>::clear(){
 }
 
 template <typename T>
-bool LnkQueue<T>::enQueue(const T item){
+bool LinkQueue<T>::enQueue(const T item){
     if(isEmpty())
         front = rear = new Link<T>(item, NULL);
     else{
@@ -145,7 +145,7 @@ bool LnkQueue<T>::enQueue(const T item){
 }
 
 template <typename T>
-bool LnkQueue<T>::deQueue(T &item){
+bool LinkQueue<T>::deQueue(T &item){
     using namespace std;
     Link<T> *tmp;
     if(isEmpty()){
@@ -163,7 +163,7 @@ bool LnkQueue<T>::deQueue(T &item){
 }
 
 template <typename T>
-bool LnkQueue<T>::getFront(T &item){
+bool LinkQueue<T>::getFront(T &item){
     using namespace std;
     if(isEmpty()){
         cout << "队列为空，无元素" << endl;
@@ -174,7 +174,7 @@ bool LnkQueue<T>::getFront(T &item){
 }
 
 template <typename T>
-bool LnkQueue<T>::isEmpty(){
+bool LinkQueue<T>::isEmpty(){
     return size == 0;
 }
 

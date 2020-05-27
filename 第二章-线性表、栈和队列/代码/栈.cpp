@@ -96,13 +96,13 @@ bool ArrStack<T>::peek(T &item){
 // ****************************** 栈的链式存储 *********************************//
 
 template <typename T>
-class LnkStack{
+class LinkStack{
     private:
         Link<T> *top;                   // 指向栈顶指针
         int size;                       // 存放栈元素的个数
     public:
-        LnkStack();                     // 构造函数
-        ~LnkStack();                    // 析构函数
+        LinkStack();                     // 构造函数
+        ~LinkStack();                    // 析构函数
         void clear();                   // 清空栈内容
         bool push(const T item);        // 出栈
         bool pop(T &item);              // 出栈
@@ -110,18 +110,18 @@ class LnkStack{
 };
 
 template <typename T>
-LnkStack<T>::LnkStack(){
+LinkStack<T>::LinkStack(){
     top = NULL;
     size = 0;
 }
 
 template <typename T>
-LnkStack<T>::~LnkStack(){
+LinkStack<T>::~LinkStack(){
     clear();
 }
 
 template <typename T>
-void LnkStack<T>::clear(){
+void LinkStack<T>::clear(){
     while(top != NULL){
         Link<T> *tmp = top;
         top = top->next;
@@ -131,7 +131,7 @@ void LnkStack<T>::clear(){
 }
 
 template <typename T>
-bool LnkStack<T>::push(const T item){
+bool LinkStack<T>::push(const T item){
     Link<T>* tmp = new Link<T>(item, top);
     top = tmp;
     size++;
@@ -139,7 +139,7 @@ bool LnkStack<T>::push(const T item){
 }
 
 template <typename T>
-bool LnkStack<T>::pop(T &item){
+bool LinkStack<T>::pop(T &item){
     using namespace std;
     Link<T> *tmp;
     if(size == 0){
@@ -155,7 +155,7 @@ bool LnkStack<T>::pop(T &item){
 }
 
 template <typename T>
-bool LnkStack<T>::peek(T &item){
+bool LinkStack<T>::peek(T &item){
     using namespace std;
     if(size == 0){
         cout << "栈空，栈顶无元素" << endl;

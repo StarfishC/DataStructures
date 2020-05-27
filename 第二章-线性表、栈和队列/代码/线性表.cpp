@@ -168,13 +168,13 @@ class Link{
 
 // 单链表
 template <typename T>
-class LnkList{
+class LinkList{
     private:
         Link<T> *head, *tail;                   // 单链表的头尾结点，添加尾结点是为了操作方便
         Link<T> *setPos(const int p);           // 返回线性表指向第p个元素的指针值
     public:
-        LnkList();                              // 构造函数
-        ~LnkList();                             // 析构函数
+        LinkList();                              // 构造函数
+        ~LinkList();                             // 析构函数
         bool isEmpty();                         // 判断链表是否为空
         void clear();                           // 将链表内容清除，成为空表
         int length();                           // 返回链表当前实际长度
@@ -187,12 +187,12 @@ class LnkList{
 };
 
 template <typename T>
-LnkList<T>::LnkList(){
+LinkList<T>::LinkList(){
     head = tail = new Link<T>();
 }
 
 template <typename T>
-LnkList<T>::~LnkList(){
+LinkList<T>::~LinkList(){
     Link<T> *tmp;
     while(head != NULL){
         tmp = head;
@@ -202,7 +202,7 @@ LnkList<T>::~LnkList(){
 }
 
 template <typename T>
-Link<T>* LnkList<T>::setPos(const int p){
+Link<T>* LinkList<T>::setPos(const int p){
     int count = 0;
     if(p == 0){
         return head;
@@ -216,7 +216,7 @@ Link<T>* LnkList<T>::setPos(const int p){
 }
 
 template <typename T>
-void LnkList<T>::clear(){
+void LinkList<T>::clear(){
     Link<T> *tmp;
     while(head != NULL){
         tmp = head;
@@ -227,7 +227,7 @@ void LnkList<T>::clear(){
 }
 
 template <typename T>
-int LnkList<T>::length(){
+int LinkList<T>::length(){
     int count = 0;
     Link<T> *tmp = head->next;
     while(tmp != NULL){
@@ -238,7 +238,7 @@ int LnkList<T>::length(){
 }
 
 template <typename T>
-bool LnkList<T>::append(const T value){
+bool LinkList<T>::append(const T value){
     Link<T> *tmp;
     tmp = new Link<T>(value, NULL);
     if(head == tail){                           // 没有元素
@@ -252,7 +252,7 @@ bool LnkList<T>::append(const T value){
 }
 
 template <typename T>
-bool LnkList<T>::insert(const int p, const T value){
+bool LinkList<T>::insert(const int p, const T value){
     using std::cout;
     using std::endl;
     Link<T> *pre, *q;
@@ -268,7 +268,7 @@ bool LnkList<T>::insert(const int p, const T value){
 }
 
 template <typename T>
-bool LnkList<T>::remove(const int p){
+bool LinkList<T>::remove(const int p){
     using std::cout;
     using std::endl;
     Link<T> *pre, *q;
@@ -289,7 +289,7 @@ bool LnkList<T>::remove(const int p){
 }
 
 template <typename T>
-bool LnkList<T>::getPos(int &p, const T value){
+bool LinkList<T>::getPos(int &p, const T value){
     Link<T> *tmp = head->next;
     int count = 0;
     while(tmp != NULL){
@@ -304,7 +304,7 @@ bool LnkList<T>::getPos(int &p, const T value){
 }
 
 template <typename T>
-bool LnkList<T>::getValue(const int p, T &value){
+bool LinkList<T>::getValue(const int p, T &value){
     using std::cout;
     using std::endl;
     Link<T> *tmp;
@@ -317,7 +317,7 @@ bool LnkList<T>::getValue(const int p, T &value){
 }
 
 template <typename T>
-void LnkList<T>::showAll(){
+void LinkList<T>::showAll(){
     using std::cout;
     using std::endl;
     Link<T> *tmp = head->next;
@@ -351,12 +351,12 @@ class DLink{
 
 
 template <typename T>
-class DLnkList{
+class DLinkList{
     private:
         DLink<T> *head, tail;
         DLink<T> *setPos(const int p);          // 指向第p个元素的指针
     public:
-        DLnkList(){
+        DLinkList(){
             head = tail = new DLink<T>(NULL, NULL);
         }
 };
