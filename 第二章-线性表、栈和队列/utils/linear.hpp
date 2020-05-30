@@ -59,8 +59,8 @@ class LinkList{
         Link<T> *head, *tail;                   // 单链表的头尾结点，添加尾结点是为了操作方便
         Link<T> *setPos(const int p);           // 返回线性表指向第p个元素的指针值
     public:
-        LinkList();                              // 构造函数
-        ~LinkList();                             // 析构函数
+        LinkList();                             // 构造函数
+        ~LinkList();                            // 析构函数
         bool isEmpty();                         // 判断链表是否为空
         void clear();                           // 将链表内容清除，成为空表
         int length();                           // 返回链表当前实际长度
