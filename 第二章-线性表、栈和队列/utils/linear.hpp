@@ -70,6 +70,8 @@ class LinkList{
         bool getValue(const int p, T &value);   // 返回位置p的元素值，存放到value中
         bool getPos(int &p, const T value);     // 查找值为value的元素，并返回第一次出现的位置
         void showAll();                         // 显示链表的所有元素
+        Link<T>* getHead();                     // 返回链表头节点
 };
 
+#include "linear.cpp"
 #endif
