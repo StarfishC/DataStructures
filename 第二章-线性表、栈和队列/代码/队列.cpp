@@ -5,7 +5,7 @@
 
 
 #include <iostream>
-#include "./utils/linear.h"
+#include "../utils/linear.hpp"
 
 
 // ****************************** 队列的顺序存储 *******************************//
@@ -25,6 +25,7 @@ class ArrQueue{
         bool getFront(T &item);             // 返回队首元素
         bool isEmpty();                     // 判断队列是否为空
         bool isFull();                      // 判断队列是否已满
+        int length();                       // 队列长度
 };
 
 template <typename T>
@@ -90,6 +91,18 @@ bool ArrQueue<T>::getFront(T &item){
     item = qu[front];
     return true;
 }
+
+template <typename T>
+int ArrQueue<T>::length(){
+    int len;
+    if(isEmpty())
+        len = 0;
+    else if(front <= rear)
+        len = rear - front;
+    else
+        len = mSize + rear - front;
+}
+
 // *****************************************************************************//
 
 
@@ -108,6 +121,7 @@ class LinkQueue{
         bool deQueue(T &item);      // 出队
         bool getFront(T &itme);     // 返回队首元素
         bool isEmpty();             // 队列是否为空
+        int length();               // 队列长度
 };
 
 template <typename T>
@@ -176,6 +190,15 @@ bool LinkQueue<T>::getFront(T &item){
 template <typename T>
 bool LinkQueue<T>::isEmpty(){
     return size == 0;
+}
+
+template <typename T>
+int LinkQueue<T>::length(){
+    // return size;
+    int len = 0;
+    for(Link<T> *tmp = front; front != rear; tmp = tmp->next)
+        len ++;
+    return len;
 }
 
 // *****************************************************************************//
