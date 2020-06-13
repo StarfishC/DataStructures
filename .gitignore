@@ -1,0 +1,6 @@
+##ignore this file##
+
+/.vscode/
+
+*.exe
+*.out
