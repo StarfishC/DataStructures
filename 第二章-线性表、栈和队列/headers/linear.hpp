@@ -1,4 +1,4 @@
-// File:    linear.h
+// File:    linear.hpp
 // Author:  csh
 // Date:    2020/05/24
 // ===================

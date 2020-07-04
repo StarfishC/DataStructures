@@ -5,7 +5,7 @@
 
 
 #include <iostream>
-#include "./utils/linear.hpp"
+#include "../headers/linear.hpp"
 
 
 template <typename T>
