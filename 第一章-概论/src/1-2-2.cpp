@@ -9,30 +9,34 @@
 using namespace std;
 
 
-int main(){
-    // Num存放100个实数
-    double Num[100] = {4542.9, 8, 3333, 4542.9, 8, 33, 22, 123, 3412, 4542.9, 56, 77, 45};
-    int pos[100];                   //记录最大值所在位置的数组
-    int position = 0;               //初始化设定数组的第一个元素为最大值
-    int j;                          //指示位置数组pos的下标
-    for(int i = 1; i < 100; i++){
-        if(Num[i] > Num[position]){
-            position = i;           //更新最大元素的位置
-            j = 1;                  //位置数组pos的下标恢复为1，下标为0的位置为position预留
-        }else if(Num[i] == Num[position])
-            pos[j++] = i;           //记下重复最大值的位置
+int* solution(double *A, int N){
+    int *ret = new int[N];          // 用来记录最大值所在的位置
+    int position = 0;               // 初始化设定数组的第一个元素
+    int j = 1;                      // 控制最大值数组的存放
+    for(int i = 1; i < N; i++){
+        if(A[i] > A[position]){
+            position = i;           // 更新最大值元素的位置
+            j = 1;                  // 重置ret数组的下一个存放位置，0号位置预留给position
+        }else if(A[i] == A[position])
+            ret[j++] = i;           // 记录重复的最大值位置
     }
-    pos[0] = position;
-    if(j < 100)
-        pos[j] = -1;                //-1是标识值，前j个元素均为最大值位置，相当于哨兵
+    ret[0] = position;
+    if(j < N)
+        ret[j] = -1;                // -1为哨兵，前j个元素均为最大值的位置
+    return ret;
+}
 
-    cout << "最大值为:" << Num[position] << endl;
-    cout << "最大值所在的位置为:";
-    for(int i = 0; i < 100; i++){
-        if(pos[i] == -1)
-            break;
-        cout << pos[i]+1 <<" ";
+
+int main(){
+    double Num[] = {4529.9, 88, 333, 22, 100, 232.3, 4529.9};
+    int *ret = solution(Num, sizeof(Num)/sizeof(double));
+    cout << "MaxNumber:" << Num[*ret] << endl;
+    cout << "MaxPosition:";
+    while(*ret != -1){
+        cout << *ret << "  ";
+        ret++;
     }
     cout << endl;
     return 0;
 }
+
