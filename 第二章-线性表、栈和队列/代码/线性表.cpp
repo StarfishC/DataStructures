@@ -15,18 +15,19 @@ class ArrList{
         T *aList;                                   // 存储顺序表的实例
         int maxSize;                                // 顺序表的最大长度
         int curLen;                                 // 顺序表的当前长度
-        int position;                               // 当前处理位置
     public:
         ArrList(const int size){                    // 创建一个大小为size的顺序表
             maxSize = size;
             aList = new T[maxSize];
-            curLen = position= 0;
+            curLen = 0;
         }
         ~ArrList(){
             delete [] aList;
         }
         void clear();                               // 清除顺序表内容，成为空表
         int length();                               // 返回顺序表长度
+        bool isEmpty();                             // 判断线性表是否为空
+        bool isFull();                              // 判断线性表是否已满
         bool append(const T value);                 // 表尾添加一个元素value
         bool insert(const int p, const T value);    // 位置p上插入一个元素value
         bool remove(const int p);                   // 移除位置p上的元素
@@ -38,9 +39,17 @@ class ArrList{
 
 template <typename T>
 void ArrList<T>::clear(){
-    delete []aList;
-    curLen = position = 0;
-    aList = new T[maxSize];
+    curLen = 0;
+}
+
+template <typename T>
+bool ArrList<T>::isEmpty(){
+    return curLen == 0;
+}
+
+template <typename T>
+bool ArrList<T>::isFull(){
+    return curLen == maxSize;
 }
 
 template <typename T>
@@ -108,7 +117,7 @@ template <typename T>
 bool ArrList<T>::remove(const int p){
     using std::cout;
     using std::endl;
-    if(curLen < 0){
+    if(curLen <= 0){
         cout << "No element to remove" << endl;
         return false;
     }
@@ -117,7 +126,7 @@ bool ArrList<T>::remove(const int p){
         return false;
     }
     for(int i = p; i < curLen-1; i++)
-        aList[p] = aList[i+1];
+        aList[i] = aList[i+1];
     curLen--;
     return true;
 }
@@ -157,7 +166,7 @@ class Link{
         T data;             // 数字域
         Link<T> *next;      // 指针域，指向后继结点的指针
 
-        Link(const T info, Link<T>* nextLink=NULL){
+        Link(const T info, const Link<T>* nextLink=NULL){
             this->data = info;
             this->next = nextLink;
         }
@@ -173,8 +182,8 @@ class LinkList{
         Link<T> *head, *tail;                   // 单链表的头尾结点，添加尾结点是为了操作方便
         Link<T> *setPos(const int p);           // 返回线性表指向第p个元素的指针值
     public:
-        LinkList();                              // 构造函数
-        ~LinkList();                             // 析构函数
+        LinkList();                             // 构造函数
+        ~LinkList();                            // 析构函数
         bool isEmpty();                         // 判断链表是否为空
         void clear();                           // 将链表内容清除，成为空表
         int length();                           // 返回链表当前实际长度
@@ -188,7 +197,7 @@ class LinkList{
 
 template <typename T>
 LinkList<T>::LinkList(){
-    head = tail = new Link<T>();
+    head = tail = new Link<T>;
 }
 
 template <typename T>
@@ -204,10 +213,10 @@ LinkList<T>::~LinkList(){
 template <typename T>
 Link<T>* LinkList<T>::setPos(const int p){
     int count = 0;
-    if(p == 0){
+    if(p == -1){                                // -1定位到头结点
         return head;
     }
-    Link<T> *tmp = new Link<T>(head->next);
+    Link<T> *tmp = new Link<T>(head->next);     // 0则定位第一个结点
     while(tmp != NULL && count < p){
         tmp = tmp->next;
         count++;
@@ -240,7 +249,7 @@ int LinkList<T>::length(){
 template <typename T>
 bool LinkList<T>::append(const T value){
     Link<T> *tmp;
-    tmp = new Link<T>(value, NULL);
+    tmp = new Link<T>(value);
     if(head == tail){                           // 没有元素
         head->next = tmp;
         tail = tmp;

@@ -14,7 +14,7 @@ using namespace std;
 
 
 // 非递归
-bool Algo(int i, int a[]){
+bool Solution(int i, int a[]){
     if(i < 1 || (i > arrsize))
         return false;
     for(int j = 1; j <= i; j++){
@@ -33,7 +33,7 @@ bool Algo(int i, int a[]){
 int main(){
     int i = 3;
     int a[arrsize];
-    Algo(i, a);
+    Solution(i, a);
     for(int j = 0; j < 5; j++)
         cout << a[j] << " ";
     cout << endl;
