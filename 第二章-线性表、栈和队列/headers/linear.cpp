@@ -12,9 +12,17 @@
 
 template <typename T>
 void ArrList<T>::clear(){
-    delete []aList;
-    curLen = position = 0;
-    aList = new T[maxSize];
+    curLen = 0;
+}
+
+template <typename T>
+bool ArrList<T>::isEmpty(){
+    return curLen == 0;
+}
+
+template <typename T>
+bool ArrList<T>::isFull(){
+    return curLen == maxSize;
 }
 
 template <typename T>
@@ -82,7 +90,7 @@ template <typename T>
 bool ArrList<T>::remove(const int p){
     using std::cout;
     using std::endl;
-    if(curLen < 0){
+    if(curLen <= 0){
         cout << "No element to remove" << endl;
         return false;
     }
@@ -91,7 +99,7 @@ bool ArrList<T>::remove(const int p){
         return false;
     }
     for(int i = p; i < curLen-1; i++)
-        aList[p] = aList[i+1];
+        aList[i] = aList[i+1];
     curLen--;
     return true;
 }
@@ -123,10 +131,9 @@ void ArrList<T>::showAll(){
 
 
 // ************************** 线性表的链式存储 *********************************//
-
 template <typename T>
 LinkList<T>::LinkList(){
-    head = tail = new Link<T>();
+    head = tail = new Link<T>;
 }
 
 template <typename T>
@@ -142,11 +149,11 @@ LinkList<T>::~LinkList(){
 template <typename T>
 Link<T>* LinkList<T>::setPos(const int p){
     int count = 0;
-    if(p == 0){
+    if(p == 0){                                // 0定位到头结点
         return head;
     }
-    Link<T> *tmp = new Link<T>(head->next);
-    while(tmp != NULL && count < p){
+    Link<T> *tmp = new Link<T>(head);          // 1则定位第一个结点
+    while(tmp != NULL && count <= p){
         tmp = tmp->next;
         count++;
     }
@@ -156,10 +163,12 @@ Link<T>* LinkList<T>::setPos(const int p){
 template <typename T>
 void LinkList<T>::clear(){
     Link<T> *tmp;
-    while(head != NULL){
-        tmp = head;
-        head = head->next;
+    Link<T> *next;
+    tmp = head->next;
+    while(tmp){
+        next = tmp->next;
         delete tmp;
+        tmp = next;
     }
     head = tail = new Link<T>;
 }
@@ -178,7 +187,7 @@ int LinkList<T>::length(){
 template <typename T>
 bool LinkList<T>::append(const T value){
     Link<T> *tmp;
-    tmp = new Link<T>(value, NULL);
+    tmp = new Link<T>(value);
     if(head == tail){                           // 没有元素
         head->next = tmp;
         tail = tmp;
@@ -209,19 +218,19 @@ template <typename T>
 bool LinkList<T>::remove(const int p){
     using std::cout;
     using std::endl;
-    Link<T> *pre, *q;
+    Link<T> *pre, *cur;
     if((pre = setPos(p-1)) == NULL || pre == tail){
         cout << "Removal point is illegal" << endl;
         return false;
     }
-    q = pre->next;                      // 待删节点
-    if(q == this->tail){                      // 待删节点为尾节点
+    cur = pre->next;                            // 待删节点
+    if(cur == this->tail){                      // 待删节点为尾节点
         this->tail = pre;
         pre->next = NULL;
-        delete q;
-    }else if(q != NULL){
-        pre->next = q->next;
-        delete q;
+        delete cur;
+    }else if(cur != NULL){
+        pre->next = cur->next;
+        delete cur;
     }
     return true;
 }
@@ -266,8 +275,4 @@ void LinkList<T>::showAll(){
     cout << endl;
 }
 
-template <typename T>
-Link<T>* LinkList<T>::getHead(){
-    return head->next;
-}
 // *****************************************************************************//

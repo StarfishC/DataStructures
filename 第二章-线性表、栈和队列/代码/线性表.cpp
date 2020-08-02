@@ -166,7 +166,7 @@ class Link{
         T data;             // 数字域
         Link<T> *next;      // 指针域，指向后继结点的指针
 
-        Link(const T info, const Link<T>* nextLink=NULL){
+        Link(const T info, Link<T>* nextLink=NULL){
             this->data = info;
             this->next = nextLink;
         }
@@ -213,11 +213,11 @@ LinkList<T>::~LinkList(){
 template <typename T>
 Link<T>* LinkList<T>::setPos(const int p){
     int count = 0;
-    if(p == -1){                                // -1定位到头结点
+    if(p == 0){                                // 0定位到头结点
         return head;
     }
-    Link<T> *tmp = new Link<T>(head->next);     // 0则定位第一个结点
-    while(tmp != NULL && count < p){
+    Link<T> *tmp = new Link<T>(head);          // 1则定位第一个结点
+    while(tmp != NULL && count <= p){
         tmp = tmp->next;
         count++;
     }
@@ -227,10 +227,12 @@ Link<T>* LinkList<T>::setPos(const int p){
 template <typename T>
 void LinkList<T>::clear(){
     Link<T> *tmp;
-    while(head != NULL){
-        tmp = head;
-        head = head->next;
+    Link<T> *next;
+    tmp = head->next;
+    while(tmp){
+        next = tmp->next;
         delete tmp;
+        tmp = next;
     }
     head = tail = new Link<T>;
 }
@@ -280,19 +282,19 @@ template <typename T>
 bool LinkList<T>::remove(const int p){
     using std::cout;
     using std::endl;
-    Link<T> *pre, *q;
+    Link<T> *pre, *cur;
     if((pre = setPos(p-1)) == NULL || pre == tail){
         cout << "Removal point is illegal" << endl;
         return false;
     }
-    q = pre->next;                      // 待删节点
-    if(q == this->tail){                      // 待删节点为尾节点
+    cur = pre->next;                            // 待删节点
+    if(cur == this->tail){                      // 待删节点为尾节点
         this->tail = pre;
         pre->next = NULL;
-        delete q;
-    }else if(q != NULL){
-        pre->next = q->next;
-        delete q;
+        delete cur;
+    }else if(cur != NULL){
+        pre->next = cur->next;
+        delete cur;
     }
     return true;
 }

@@ -16,45 +16,53 @@ typedef int bool;
 
 // ************************** 线性表的顺序存储 *********************************//
 #define MAXSIZE 10000
-typedef int ElemetType;
+typedef int T;
 
-typedef struct Node *ArrList;
+typedef struct Node *List;
 struct Node{
-    ElemetType Data[MAXSIZE];
+    T Data[MAXSIZE];
     int length;
 };
 
+List InitList();                                            // 创建一个空表
+int lenList(List Ptrl);                                     // 线性表大小
+bool clearList(List Ptrl);                                  // 清空线性表
+bool isEmptyList(List Ptrl);                                // 判断线性表是否为空
+bool isFullList(List Ptrl);                                 // 判断线性表是否已满
+bool appendList(List Ptrl, const T value);                  // 表尾添加元素
+bool insertList(List Ptrl, const int p, const T value);     // 第P个位置插入元素value
+bool removeList(List Ptrl, const int p);                    // 移除第p个元素
+bool setValueList(List Ptrl, const int p, const T value);   // 设置第p个位置的元素
+bool getValueList(List Ptrl, const int p, T *value);        // 获取第p个元素
+bool getPosList(List Ptrl, const T value, int *p);          // 获取元素为value的位置
+void showAllList(List Ptrl);
 
-// 初始化一个线性表
-ArrList InitArrList(){
-    ArrList Ptrl;
+List InitList(){
+    List Ptrl;
     Ptrl = malloc(sizeof(struct Node));
     if(!Ptrl) exit(-1);
     Ptrl->length = 0;
     return Ptrl;
 }
 
-// 清空线性表所有元素
-void clearArrList(ArrList Ptrl){
-    for(int i = 0; i < Ptrl->length; i++)
-        Ptrl->Data[i] = 0;
-    Ptrl->length = 0;
-}
-
-// 显示所有元素
-void showAllArrList(ArrList Ptrl){
-    for(int i = 0; i < Ptrl->length; i++)
-        printf("%d ", Ptrl->Data[i]);
-    printf("\n");
-}
-
-// 线性表的长度
-int lenArrList(ArrList Ptrl){
+int lenList(List Ptrl){
     return Ptrl->length;
 }
 
-// 表尾添加一个元素
-bool appendArrList(ArrList Ptrl, const ElemetType value){
+bool clearList(List Ptrl){
+    Ptrl->length = 0;
+    return TRUE;
+}
+
+bool isEmptyList(List Ptrl){
+    return Ptrl->length == 0;
+}
+
+bool isFullList(List Ptrl){
+    return Ptrl->length == MAXSIZE;
+}
+
+bool appendList(List Ptrl, const T value){
     if(Ptrl->length >= MAXSIZE){
         printf("OVERFLOW!");
         return FALSE;
@@ -63,9 +71,8 @@ bool appendArrList(ArrList Ptrl, const ElemetType value){
     return TRUE;
 }
 
-// 位置i插入一个元素
-bool insertArrList(ArrList Ptrl, const int i, const ElemetType value){
-    if(i < 1 || i > Ptrl->length+1){
+bool insertList(List Ptrl, const int p, const T value){
+    if(p < 1 || p > Ptrl->length+1){
         printf("Insertion point is illegal");
         return FALSE;
     }
@@ -73,38 +80,40 @@ bool insertArrList(ArrList Ptrl, const int i, const ElemetType value){
         printf("List Full");
         return FALSE;
     }
-    for(int j = Ptrl->length-1; j >= i-1; j--){
+    for(int j = Ptrl->length-1; j >= p-1; j--)
         Ptrl->Data[j+1] = Ptrl->Data[j];
-    }
-    Ptrl->Data[i-1] = value;
+    Ptrl->Data[p-1] = value;
     Ptrl->length ++;
     return TRUE;
 }
 
-// 移除位置i的元素
-bool removeArrList(ArrList Ptrl, const int i){
-    if(i < 1|| i > Ptrl->length){
+bool removeList(List Ptrl, const int p){
+    if(p < 1|| p > Ptrl->length){
         printf("Removal point is illegal");
         return FALSE;
     }
-    for(int j = i; j <= Ptrl->length-1; j++)
+    for(int j = p; j <= Ptrl->length-1; j++)
         Ptrl->Data[j-1] = Ptrl->Data[j];
     Ptrl->length --;
     return TRUE;
 }
 
-// 获取位置i的元素值
-bool getValueArrList(ArrList Ptrl, const int i, ElemetType *value){
-    if(i < 1 || i > Ptrl->length){
+bool getValueList(List Ptrl, const int p, T *value){
+    if(p < 1 || p > Ptrl->length){
         printf("Location is illegal");
         return FALSE;
     }
-    *value = Ptrl->Data[i-1];
+    *value = Ptrl->Data[p-1];
     return TRUE;
 }
 
-// 获取位置元素值对应的位置
-bool getPosArrList(ArrList Ptrl, ElemetType *p, const ElemetType value){
+void showAllList(List Ptrl){
+    for(int i = 0; i < Ptrl->length; i++)
+        printf("%d ", Ptrl->Data[i]);
+    printf("\n");
+}
+
+bool getPosList(List Ptrl, const T value, int *p){
     int i = 0;
     while(i < Ptrl->length && Ptrl->Data[i] != value)
         i++;
@@ -124,151 +133,28 @@ bool getPosArrList(ArrList Ptrl, ElemetType *p, const ElemetType value){
    元素时可发现是逆序显示
    */
 
-typedef int T;
-typedef struct List* LinkList;
+typedef struct LinkNode* Link;
 
-struct List
-{
+struct LinkNode{
     T data;
-    LinkList next;
+    Link next;
 };
 
-LinkList InitLinkList()
-{
-    LinkList L;
-    L = NULL;                   // 这里没有malloc，和C++链表写法有思想上差异
-    return L;
-}
-
-void clearLinkList(LinkList Ptrl){
-    if(!(Ptrl))
-        return;
-    else{
-        LinkList tmp = (Ptrl)->next;
-        while(tmp){
-            free(tmp);
-            tmp = tmp->next;
-        }
-    }
-}
-
-void showAllLinkList(LinkList Ptrl){
-    LinkList tmp = Ptrl;
-    while(tmp){
-        T value = tmp->data;
-        tmp = tmp->next;
-        printf("%d \t", value);
-    }
-    printf("\n");
-}
-
-int lenLinkList(LinkList Ptrl){
-    int count = 0;
-    LinkList tmp = Ptrl;
-    while(tmp){
-        tmp = tmp->next;
-        count ++;
-    }
-    return count;
-}
-
-bool getListLinkList(LinkList Ptrl, const int i, LinkList *L){
-    LinkList tmp = Ptrl;
-    int count = 1;
-    while(count < i && tmp){
-        tmp = tmp->next;
-        count++;
-    }
-    if(i == count && Ptrl){
-        *L = tmp;
-        return TRUE;
-    }else{
-        return FALSE;
-    }
-}
-
-bool appendLinkList(LinkList *Ptrl, const T value){
-    LinkList tmp;
-    tmp = (LinkList)malloc(sizeof(struct List));
-    if(!tmp)
-        return FALSE;
-    tmp->data = value;
-    tmp->next = *Ptrl;
-    *Ptrl = tmp;
-    return TRUE;
-}
-
-bool insertLinkList(LinkList *Ptrl, const int i, const T value){
-    if(i < 1 || i > lenLinkList(*Ptrl)+1){
-        printf("Insertion point is illegal");
-        return FALSE;
-    }
-    LinkList p, s;
-    if(i == 1){
-        p = (LinkList)malloc(sizeof(struct List));
-        p->data = value;
-        p->next = *Ptrl;
-        *Ptrl = p;
-    } 
-    else{
-        getListLinkList(*Ptrl, i-1, &s);
-        p = (LinkList)malloc(sizeof(struct List));
-        p->data = value;
-        p->next = s->next;
-        s->next = p;
-    }
-    return TRUE;
-}
-
-bool removeLinkList(LinkList *Ptrl, const int i){
-    LinkList previous, current;
-    current = *Ptrl;
-    if(!current){
-        printf("Removal is illegal");
-        return FALSE;
-    }
-    if(i == 1){
-        *Ptrl = (*Ptrl)->next;
-        free(current);
-    }else{
-        int status = getListLinkList(*Ptrl, i-1, &previous);
-        if(status){
-            current = previous->next;
-            previous->next = current->next;
-            free(current);
-        }
-    }
-    return TRUE;
-}
-
-bool getPosLinkList(LinkList Ptrl, T value, int *p){
-    int count = 1;
-    LinkList tmp = Ptrl;
-    while(tmp){
-        if(tmp->data == value){
-            *p = count;
-            return TRUE;
-        }else{
-            tmp = tmp->next;
-            count++;
-        }
-    }
-    return FALSE;
-}
-
-bool getValueLinkList(LinkList Ptrl, const int i, T *value){
-    LinkList tmp = Ptrl;
-    int count = 1;
-    while(count < i && tmp){
-        tmp = tmp->next;
-        count++;
-    }
-    if(i == count && Ptrl){
-        *value = tmp->data;
-        return TRUE;
-    }else{
-        return FALSE;
-    }
-}
+Link InitLink();                                            // 创建一个空表
+int lenLink(Link Ptrl);                                     // 线性表大小
+Link setPos(const int p, Link Ptrl);                        // 找到第p个位置的结点
+bool clearLink(Link Ptrl);                                  // 清空线性表
+bool isEmptyLink(Link Ptrl);                                // 判断线性表是否为空
+bool appendLink(Link Ptrl, const T value);                  // 表尾添加元素
+bool insertLink(Link Ptrl, const int p, const T value);     // 第P个位置插入元素value
+bool removeLink(Link Ptrl, const int p);                    // 移除第p个元素
+bool setValueLink(Link Ptrl, const int p, const T value);   // 设置第p个位置的元素
+bool getValueLink(Link Ptrl, const int p, T *value);        // 获取第p个元素
+bool getPosLink(Link Ptrl, const T value, int *p);          // 获取元素为value的位置
+void showAllLink(Link Ptrl);
 
 // *********************************************************************//
+
+int main(){
+    return 0;
+}

@@ -11,22 +11,23 @@
 
 template <typename T>
 class ArrList{
-    protected:
+    private:
         T *aList;                                   // 存储顺序表的实例
         int maxSize;                                // 顺序表的最大长度
         int curLen;                                 // 顺序表的当前长度
-        int position;                               // 当前处理位置
     public:
         ArrList(const int size){                    // 创建一个大小为size的顺序表
             maxSize = size;
             aList = new T[maxSize];
-            curLen = position= 0;
+            curLen = 0;
         }
         ~ArrList(){
             delete [] aList;
         }
         void clear();                               // 清除顺序表内容，成为空表
         int length();                               // 返回顺序表长度
+        bool isEmpty();                             // 判断线性表是否为空
+        bool isFull();                              // 判断线性表是否已满
         bool append(const T value);                 // 表尾添加一个元素value
         bool insert(const int p, const T value);    // 位置p上插入一个元素value
         bool remove(const int p);                   // 移除位置p上的元素
@@ -53,6 +54,7 @@ class Link{
         }
 };
 
+// 单链表
 template <typename T>
 class LinkList{
     protected:
@@ -70,7 +72,6 @@ class LinkList{
         bool getValue(const int p, T &value);   // 返回位置p的元素值，存放到value中
         bool getPos(int &p, const T value);     // 查找值为value的元素，并返回第一次出现的位置
         void showAll();                         // 显示链表的所有元素
-        Link<T>* getHead();                     // 返回链表头节点
 };
 
 #include "linear.cpp"

@@ -25,8 +25,8 @@ class List{
         }
         bool insert(const T value){
             int left, right, mid;
-            left = 0;
-            right = curLen-1;
+            left = 1;
+            right = curLen;
             if(curLen >= maxSize){
                 cout << "顺序表已满" << endl;
                 return false;
@@ -37,12 +37,15 @@ class List{
                 return true;
             }
             // 否则用二分查找合适位置
-            while(left < right){
+            while(left <= right){
                 mid = (right - left)/2 + left;
                 if(aList[mid] < value)
-                    left = mid+1;
-                else if(aList[mid] > value)
-                    right = mid-1;
+                    left = mid + 1;
+                else if(aList[mid] > value){
+                    if(aList[mid-1] < value)
+                        break;
+                    right = mid - 1;
+                }
                 else
                     break;
             }
@@ -63,11 +66,10 @@ class List{
 
 int main(){
     List<int> a = List<int>(10);
-    a.insert(1);
-    a.insert(3);
     a.insert(5);
-    a.insert(7);
+    a.insert(4);
+    a.insert(8);
     a.insert(9);
-    a.insert(6);
+    a.insert(7);
     a.showAll();
 }
