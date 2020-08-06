@@ -1,184 +1,115 @@
-// File:    2-3-4.cpp
+// File:    2-3-5.cpp
 // Author:  csh
 // Date:    2020/07/12
 // ===================
 
 
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
+// C语言实现
+#include <stdio.h>
+#include <malloc.h>
+#include <assert.h>
+
+#define Elemtype char
+
+typedef struct SCList{
+    Elemtype ch;
+    struct SCList *next;
+}Node;
 
 
-using namespace std;
-
-typedef char ElemType;
-
-typedef struct Node{
-    ElemType data;
-    struct Node *next;
-
-}Node, *LinkList;
-
-
-LinkList CreateList(){
-    LinkList L;
-    ElemType c;
-    L  = new Node;
-    L->next = NULL;
-    Node *p, *tail;
-    tail = L;
-    c = getchar();
-    while(c != '#'){
-        p = new Node;
-        p->data = c;
-        tail->next = p;
-        tail = p;
-        c = getchar();
-    }
-    tail->next = NULL;
-    return L;
-}
-
-void ShowList(LinkList L){
-    Node *p;
-    p = L->next;
-    while(p != NULL){
-        cout << p->data << " ";
-        p = p ->next;
-    }
-    cout << endl;
-}
-
-void ReverseList(LinkList L){
-    Node *p, *q;
-    p = L->next;
-    L->next = NULL;
-    while(p != NULL){
-        q = p->next;
-        p->next = L->next;
-        L->next = p;
-        p = q;
-    }
-}
-
-
-// 归并成按元素递增线性表
-LinkList MergeList1(LinkList LA, LinkList LB){
-    LinkList LC;
-    Node *pa, *pb, *r;
-    pa = LA->next;
-    pb = LB->next;
-    LC = LA;
-    LC->next = NULL;
-    r = LC;
-    while(pa != NULL && pb != NULL){
-        if(pa->data <= pb->data){           // pa小于pb时
-            r->next = pa;
-            r = pa;
-            pa = pa->next;
-        }else{
-            r->next = pb;
-            r = pb;
-            pb = pb->next;
-        }
-        if(pa){             // 只剩链表a的结点
-            r->next = pa;
-        }else{
-            r->next = pb;
-        }
-    }
-    return LC;
-}
-
-
-// 题意：归并成按元素递减线性表
-/* 先逆置线性表，在归并, 或先按递增排，在逆置 */
-LinkList MergeList2(LinkList LA, LinkList LB){
-    ReverseList(LA);
-    ReverseList(LB);
-    LinkList LC;
-    Node *pa, *pb, *r;
-    pa = LA->next;
-    pb = LB->next;
-    LC = LA;
-    LC->next = NULL;
-    free(LB);               // 释放掉LB头结点
-    r = LC;
-    while(pa != NULL && pb != NULL){
-        if(pa->data <= pb->data){           // pa小于pb时
-            r->next = pa;
-            r = pa;
-            pa = pa->next;
-        }else{
-            r->next = pb;
-            r = pb;
-            pb = pb->next;
-        }
-        if(pa){             // 只剩链表a的结点
-            r->next = pa;
-        }else{
-            r->next = pb;
-        }
-    }
-    return LC;
-};
-
-// 不逆置，头插法
-LinkList MergeList3(LinkList LA, LinkList LB){
-    Node *pa = LA->next;
-    Node *pb = LB->next;
-    Node *r;
-
-    LA->next = NULL;        // 新链表使用LA头结点
-    free(LB);               // 释放掉LB头结点
-
-    while(pa != NULL && pb != NULL){
-        if(pa->data < pb->data){    // 将pa插入链表头部
-            r = pa->next;
-            pa->next = LA->next;
-            LA->next = pa;
-            pa = r;
-        }else{
-            r = pb->next;
-            pb->next = LA->next;
-            LA->next = pb;
-            pb = r;
-        }
-    }
-
-    while(pa != NULL){
-        r = pa->next;
-        pa->next = LA->next;
-        LA->next = pa;
-        pa = r;
-    }
-
-    while(pb != NULL){
-        r = pb->next;
-        pb->next = LA->next;
-        LA->next = pb;
-        pb = r;
-    }
-    return LA;
-};
+Node* _buynode(Elemtype ch);                    // 申请一个新结点，返回这个结点的指针
+void initital(Node **head);                     // 初始化单循环链表
+void push_back(Node *head, Elemtype ch);        // 单循环链表的尾部插入一个新的结点
+void show(Node *head);                          // 显示单循环链表的数据元素
+void function(Node *ha, Node *hb, Node *hc);    // 分割三类字符数据元素
 
 
 int main(){
-    LinkList LA;
-    LA = CreateList();
-    getchar();
-    LinkList LB;
-    LB = CreateList();
+    Node *ha;
+    initital(&ha);
 
-    cout << "LA: " << endl;
-    ShowList(LA);
+    printf("请构造字符类型的单循环链表，要三种字符，以@结束\n");
+    char ch;
+    while(1){
+        scanf("%c", &ch);
+        if(ch == '@')
+            break;
+        push_back(ha, ch);
+    }
+    printf("构造完成的链表>>");
+    show(ha);
 
-    cout << "LB: " << endl;
-    ShowList(LB);
-
-    LinkList LC;
-    LC = MergeList3(LA, LB);
-    cout << "MergeList: " << endl;
-    ShowList(LC);
+    Node *hb,*hc;
+    initital(&hb);
+    initital(&hc);
+    function(ha, hb, hc);
+    printf("分割后的单循环链表\n");
+    show(ha);
+    show(hb);
+    show(hc);
     return 0;
+}
+
+
+Node* _buynode(Elemtype ch){
+    Node *s = (Node*)malloc(sizeof(Node));
+    assert(s != NULL);
+    s->ch = ch;
+    s->next = NULL;
+    return s;
+}
+
+void initital(Node **head){
+    *head = (Node*)malloc(sizeof(Node));
+    assert(*head != NULL);
+    (*head)->next = *head;
+    (*head)->ch = 0;        // 表长为0
+}
+
+void push_back(Node *head, Elemtype ch){
+    Node *s = _buynode(ch);
+    Node *p = head;
+    while(p->next != head)
+        p = p->next;
+    s->next = p->next;
+    p->next = s;
+    head->ch++;
+}
+
+void show(Node *head){
+    if(head->ch == 0)
+        return;
+    Node *p = head;
+    while(p->next != head){
+        printf("%c-->", p->next->ch);
+        p = p->next;
+    }
+    printf("head.\n");
+}
+
+void function(Node *ha, Node *hb, Node *hc){
+    Node *pa = ha;
+    while(pa->next != ha){
+        if(pa->next->ch <= '9' && pa->next->ch >= '0'){
+            Node *q = pa->next;
+            pa->next = q->next;
+            Node *pb = hb->next;
+            while(pb->next != hb)
+                pb = pb->next;
+            q->next = pb->next;
+            pb->next = q;
+            hb->ch++;
+        }else if(pa->next->ch < 'Z' && pa->next->ch >= 'A' || pa->next->ch <= 'z' && pa->next->ch >= 'a'){
+            Node *q = pa->next;
+            pa->next = q->next;
+            Node *pc = hc->next;
+            while(pc->next != hc)
+                pc = pc->next;
+            q->next = pc->next;
+            pc->next = q;
+            hc->ch++;
+        }else
+            pa = pa->next;
+    }
+
 }

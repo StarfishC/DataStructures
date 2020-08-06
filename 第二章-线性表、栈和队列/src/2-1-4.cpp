@@ -56,6 +56,42 @@ class LinkList2:public LinkList<T>{
             else
                 tmp->next = pb;             // 只剩LB链表的节点
         }
+        // 头插法，不需要逆置，每次移动头指针
+        void MergeList2(LinkList2<int> *LB){
+            Link<T> *pa = this->head->next;
+            Link<T> *pb = LB->gethead()->next;
+            Link<T> *tmp;
+
+            LB->gethead()->next = NULL;
+            this->head->next = NULL;
+
+            while(pa != NULL && pb != NULL){
+                if(pa->data <= pb->data){
+                    tmp = pa->next;
+                    pa->next = this->head->next;
+                    this->head->next = pa;
+                    pa = tmp;
+                }else{
+                    tmp = pb->next;
+                    pb->next = this->head->next;
+                    this->head->next = pb;
+                    pb = tmp;
+                }
+            }
+
+            while(pa != NULL){
+                tmp = pa->next;
+                pa->next = this->head->next;
+                this->head->next = pa;
+                pa = tmp;
+            }
+            while(pb != NULL){
+                tmp = pb->next;
+                pb->next = this->head->next;
+                this->head->next = pb;
+                pb = tmp;
+            }
+        }
 };
 
 
@@ -70,7 +106,7 @@ int main(){
     LB.append(2);
     LB.append(4);
     LB.append(7);
-    LA.MergeList(&LB);
+    LA.MergeList2(&LB);
     LA.showAll();
 
     return 0;
