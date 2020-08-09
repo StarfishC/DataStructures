@@ -27,12 +27,13 @@ class SqList:public ArrList<T>{
 
 
 int main(){
-    // SqList<int> L = SqList<int>(5);
-    ArrList<int> L = ArrList<int>(5);
+    SqList<int> L = SqList<int>(5);
     L.append(1);
     L.append(2);
     L.append(3);
     L.append(4);
+    L.append(5);
+    L.Delete(1, 3);
     L.showAll();
     return 0;
 }

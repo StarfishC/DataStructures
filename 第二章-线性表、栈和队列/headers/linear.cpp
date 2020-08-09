@@ -38,7 +38,7 @@ bool ArrList<T>::append(const T value){
         cout << "The list is overflow" << endl;
         return false;
     }
-    aList[curLen-1] = value;
+    aList[curLen] = value;
     curLen++;
     return true;
 }

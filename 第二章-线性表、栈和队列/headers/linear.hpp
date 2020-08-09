@@ -11,7 +11,7 @@
 
 template <typename T>
 class ArrList{
-    private:
+    protected:
         T *aList;                                   // 存储顺序表的实例
         int maxSize;                                // 顺序表的最大长度
         int curLen;                                 // 顺序表的当前长度
