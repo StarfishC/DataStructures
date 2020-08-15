@@ -27,16 +27,13 @@ class LinkList2:public LinkList<T>{
                 first = last;               // 继续逆置
             }
         }
-        Link<T>* gethead(){
-            return this->head;
-        }
         void MergeList(LinkList2<T>* LB){
             reverseList();
             LB->reverseList();
             Link<T> *pa, *pb, *tmp;
             pa = this->head->next;          // pa指向第一个节点
-            pb = LB->gethead()->next;
-            LB->gethead()->next = NULL;     // 指向空，方便析构函数释放空间
+            pb = LB->getHead()->next;
+            LB->getHead()->next = NULL;     // 指向空，方便析构函数释放空间
             this->head->next = NULL;
             tmp = this->head;
  
@@ -59,10 +56,10 @@ class LinkList2:public LinkList<T>{
         // 头插法，不需要逆置，每次移动头指针
         void MergeList2(LinkList2<int> *LB){
             Link<T> *pa = this->head->next;
-            Link<T> *pb = LB->gethead()->next;
+            Link<T> *pb = LB->getHead()->next;
             Link<T> *tmp;
 
-            LB->gethead()->next = NULL;
+            LB->getHead()->next = NULL;
             this->head->next = NULL;
 
             while(pa != NULL && pb != NULL){

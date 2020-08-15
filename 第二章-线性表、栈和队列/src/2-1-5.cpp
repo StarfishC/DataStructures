@@ -63,9 +63,6 @@ class LoopLink{
 template <typename T>
 class LinkList2:public LinkList<T>{
     public:
-        Link<T>* getHead(){
-            return this->head;                  // 获取头节点
-        }
         void setHead(){                         // 设置头节点下一个节点为NULL，方便析构
             this->head->next = NULL;
         }

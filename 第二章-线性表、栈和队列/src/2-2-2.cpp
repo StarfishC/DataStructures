@@ -13,7 +13,7 @@ class NewLink:public LinkList<T>{
     public:
         void insert(T value1, T value2){
             using namespace std;
-            Link<T> *tmp = LinkList<T>::getHead();
+            Link<T> *tmp = this->head->next;
             Link<T> *pre = NULL;                    // 存放当前节点的上一个节点
             int count;                              // 计数插入元素次数
             while(tmp != NULL){

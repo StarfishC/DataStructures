@@ -16,7 +16,7 @@ class ArrList{
         int maxSize;                                // 顺序表的最大长度
         int curLen;                                 // 顺序表的当前长度
     public:
-        ArrList(const int size){                    // 创建一个大小为size的顺序表
+        ArrList(int size){                    // 创建一个大小为size的顺序表
             maxSize = size;
             aList = new T[maxSize];
             curLen = 0;
@@ -72,6 +72,7 @@ class LinkList{
         bool getValue(const int p, T &value);   // 返回位置p的元素值，存放到value中
         bool getPos(int &p, const T value);     // 查找值为value的元素，并返回第一次出现的位置
         void showAll();                         // 显示链表的所有元素
+        Link<T>* getHead();                     // 返回头节点
 };
 
 #include "linear.cpp"

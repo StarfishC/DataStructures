@@ -275,4 +275,9 @@ void LinkList<T>::showAll(){
     cout << endl;
 }
 
+template <typename T>
+Link<T>* LinkList<T>::getHead(){
+    return head;
+}
+
 // *****************************************************************************//
