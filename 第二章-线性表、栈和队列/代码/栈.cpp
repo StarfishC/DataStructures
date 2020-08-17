@@ -5,7 +5,6 @@
 
 
 #include <iostream>
-#include "./utils/linear.h"
 
 
 // ****************************** 栈的顺序存储 *********************************//
@@ -96,15 +95,30 @@ bool ArrStack<T>::peek(T &item){
 // ****************************** 栈的链式存储 *********************************//
 
 template <typename T>
+class Link{
+    public:
+        T data;                         // 数字域
+        Link<T> *next;                  // 指针域，指向后继结点的指针
+
+        Link(const T info, Link<T>* nextLink=NULL){
+            this->data = info;
+            this->next = nextLink;
+        }
+        Link(Link<T>* nextLink=NULL){
+            this->next = nextLink;
+        }
+};
+
+template <typename T>
 class LinkStack{
     private:
         Link<T> *top;                   // 指向栈顶指针
         int size;                       // 存放栈元素的个数
     public:
-        LinkStack();                     // 构造函数
-        ~LinkStack();                    // 析构函数
+        LinkStack();                    // 构造函数
+        ~LinkStack();                   // 析构函数
         void clear();                   // 清空栈内容
-        bool push(const T item);        // 出栈
+        bool push(const T item);        // 入栈
         bool pop(T &item);              // 出栈
         bool peek(T &item);             // 返回栈顶元素
 };
