@@ -21,30 +21,26 @@ void test(int &sum){
     cout << sum;
 }
 
-void test2(int &sum){
+void test2(){
     int x;
-    stack<int> s;
-    stack<int> s2;
+    stack<int> s1;
     cin >> x;
     while(x != 0){
-        s.push(x);
+        s1.push(x);
         cin >> x;
     }
-    while(!s.empty()){
-        sum += s.top();
-        s.pop();
-        s2.push(sum);
-    }
-    s2.push(0);
-    while(!s2.empty()){
-        cout << s2.top() << "  ";
-        s2.pop();
+    s1.push(0);
+    int sum = 0;
+    while(!s1.empty()){
+        sum += s1.top();
+        s1.pop();
+        cout << sum << endl;
     }
     cout << endl;
 }
 
 int main(){
     int sum = 0;
-    test2(sum);
+    test2();
     return 0;
 }
