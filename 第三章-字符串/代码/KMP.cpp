@@ -5,10 +5,31 @@
 
 
 #include <string>
+#include <cstring>
 #include <cassert>
 #include <iostream>
 
 using namespace std;
+
+// 下列两个来自B站
+void prefix_table(char pattern[], int prefix[], int n);
+int KMP(char text[], char pattern[]);
+
+
+// 以下两个来自教材
+int *findNext(string P);
+int KMPStrMatching(const string &T, const string &P, int *N);
+
+
+int main(){
+    string target = "abaacababcac";
+    string pattern = "ababc";
+    int *N = findNext(pattern);
+    int pos = KMPStrMatching(target, pattern, N);
+    cout << pos << endl;
+    return 0;
+}
+
 
 // 与findNext一样，但未经优化
 void prefix_table(char pattern[], int prefix[], int n){
@@ -29,9 +50,35 @@ void prefix_table(char pattern[], int prefix[], int n){
     }
 
     // 前缀表最后一项可以不需要，结果后移一位，第一位改成-1
-    for(int i = n-1; i > 0; i++)
+    for(int i = n-1; i > 0; i--)
         prefix[i] = prefix[i-1];
     prefix[0] = -1;
+}
+
+int KMP(char text[], char pattern[]){
+    int m = strlen(text);
+    int n = strlen(pattern);
+    int *next = (int*)malloc(sizeof(int)*n);
+    prefix_table(pattern, next, n);
+
+    int i = 0;
+    int j = 0;
+    while(i < m){
+        if(j == n-1 && text[i] == pattern[j]){
+            cout << "Found pattern at " << i - j << endl;
+            j = next[j];
+        }
+        if(text[i] == pattern[j])
+            i++,j++;
+        else{
+            j = next[j];
+            if(j == -1){
+                i++;
+                j++;
+            }
+        }
+    }
+    return i - j;
 }
 
 int *findNext(string P){
@@ -56,7 +103,6 @@ int *findNext(string P){
     return next;
 }
 
-
 int KMPStrMatching(const string &T, const string &P, int *N){
     int i = 0;                      // 模式下标变量
     int j = 0;                      // 目标下标变量
@@ -73,14 +119,4 @@ int KMPStrMatching(const string &T, const string &P, int *N){
     if(i >= pLen)
         return j-pLen;
     else return -1;
-}
-
-
-int main(){
-    string target = "abaacababcac";
-    string pattern = "ababc";
-    int *N = findNext(pattern);
-    int pos = KMPStrMatching(target, pattern, N);
-    cout << pos << endl;
-    return 0;
 }
