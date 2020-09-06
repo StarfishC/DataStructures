@@ -30,13 +30,13 @@ void BinarySearchTree<T>::InsertNode(BinaryTreeNode<T> *newPointer){
             return;
         else if(newPointer->value() < pointer->value()){                // 插入结点小于关键码值，进入左子树
             if(pointer->leftchild() == NULL){                           // pointer没有左孩子
-                pointer->left = newPointer;
+                pointer->setLeftchild(newPointer);
                 return;
             }else pointer = pointer->leftchild();                       // 向左下降
         }
         else{                                                           // 插入结点大于关键码值，进入右子树
             if(pointer->rightchild() == NULL){
-                pointer->rigth = newPointer;
+                pointer->setRightchild(newPointer);
                 return;
             }else pointer = pointer->rightchild();
         }

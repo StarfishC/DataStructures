@@ -1,10 +1,5 @@
-// File:    binaryTreeNode.hpp
-// Author:  csh
-// Date:    2020/07/04
-// ===================
-
-#ifndef _binaryTreeNode_H
-#define _binaryTreeNode_H
+#ifndef _BINARYTREENODE_H_
+#define _BINARYTREENODE_H_
 
 template <typename T>
 class BinaryTreeNode{

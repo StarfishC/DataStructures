@@ -4,7 +4,6 @@
 // ===================
 
 
-#include <cstdio>
 #include <iostream>
 #include <stack>
 #include <queue>
@@ -12,33 +11,7 @@
 using namespace std;
 
 template <typename T>
-class BinaryTreeNode;
-
-// 二叉树类
-template <typename T>
-class BinaryTree{
-    private:
-        BinaryTreeNode<T> *root;                            // 二叉树根结点
-    public:
-        BinaryTree(){root = NULL;};                         // 默认构造函数
-        ~BinaryTree(){DeleteBinaryTree(root);}              // 析构函数
-        void DeleteBinaryTree(BinaryTreeNode<T> *node);     // 删除给定的二叉树
-        bool IsEmpty() const;                               // 判断二叉树是否为空
-        BinaryTreeNode<T>* Root(){return root;};            // 返回二叉树根结点
-        BinaryTreeNode<T>* Parent(BinaryTreeNode<T> *cur);  // 返回当前结点父结点
-        BinaryTreeNode<T>* LeftSibling(BinaryTreeNode<T> *cur);     // 返回当前结点左兄弟
-        BinaryTreeNode<T>* RightSibling(BinaryTreeNode<T> *cur);    // 返回当前结点右兄弟
-        void CreateTree(const T &info, BinaryTree<T> &leftTree, BinaryTree<T> &rightTree);
-                                                            // 构造新树
-        void PreOrder();                                    // 前序周游给定二叉树
-        void InOrder();                                     // 中序周游给定二叉树
-        void PostOrder();                                   // 后序周游给定二叉树
-        void LevelOrder();                                  // 层次周游给定二叉树(BFS)
-
-        void PreOrderWithoutRecursion();                    // 前序周游非递归
-        void InOrderWithoutRecursion();                     // 中序周游非递归
-        void PostOrderWithoutRecursion();                   // 后序周游非递归
-};
+class BinaryTree;
 
 
 // 二叉树结点类
@@ -64,6 +37,33 @@ class BinaryTreeNode{
 };
 
 
+// 二叉树类
+template <typename T>
+class BinaryTree{
+    private:
+        BinaryTreeNode<T> *root;                            // 二叉树根结点
+    public:
+        BinaryTree(){root = NULL;};                         // 默认构造函数
+        ~BinaryTree(){DeleteBinaryTree(root);}              // 析构函数
+        void DeleteBinaryTree(BinaryTreeNode<T> *node);     // 删除给定的二叉树
+        bool IsEmpty() const;                               // 判断二叉树是否为空
+        BinaryTreeNode<T>* Root(){return root;};            // 返回二叉树根结点
+        BinaryTreeNode<T>* Parent(BinaryTreeNode<T> *cur);  // 返回当前结点父结点
+        BinaryTreeNode<T>* LeftSibling(BinaryTreeNode<T> *cur);     // 返回当前结点左兄弟
+        BinaryTreeNode<T>* RightSibling(BinaryTreeNode<T> *cur);    // 返回当前结点右兄弟
+        void CreateTree(const T &info, BinaryTree<T> &leftTree, BinaryTree<T> &rightTree);
+                                                            // 构造新树
+        inline void Visit(T &value);                        // 访问结点值
+        void PreOrder(BinaryTreeNode<T> *node=NULL);        // 前序周游给定二叉树
+        void InOrder(BinaryTreeNode<T> *node=NULL);         // 中序周游给定二叉树
+        void PostOrder(BinaryTreeNode<T> *node=NULL);       // 后序周游给定二叉树
+        void PreOrderWithoutRecursion();                    // 前序周游非递归
+        void InOrderWithoutRecursion();                     // 中序周游非递归
+        void PostOrderWithoutRecursion();                   // 后序周游非递归
+        void LevelOrder();                                  // 层次周游给定二叉树(BFS)
+};
+
+
 template <typename T>
 void BinaryTree<T>::CreateTree(const T &info, BinaryTree<T> &leftTree, BinaryTree<T> &rightTree){
     root = new BinaryTreeNode<T>(info, leftTree.root, rightTree.root);
@@ -75,7 +75,7 @@ void BinaryTree<T>::DeleteBinaryTree(BinaryTreeNode<T> *node){
     if(node != NULL){
         DeleteBinaryTree(node->left);
         DeleteBinaryTree(node->right);
-        delete root;
+        delete node;
     }
 }
 
@@ -97,41 +97,63 @@ BinaryTreeNode<T>* BinaryTree<T>::Parent(BinaryTreeNode<T> *cur){
             }
         }
     }
+    return NULL;
 }
 
 template <typename T>
 bool BinaryTree<T>::IsEmpty() const{
-    return (root != NULL ? false: true);
+    return root == NULL;
 }
 
 template <typename T>
-void BinaryTree<T>::PreOrder(){
-    if(root != NULL){
-        cout << root->value() << " ";
-        PreOrder(root->leftchild());
-        PreOrder(root->rightchild());
+void BinaryTree<T>::PreOrder(BinaryTreeNode<T> *node){
+    if(node == NULL){
+        if(root){
+            Visit(root->value());
+            PreOrder(root->leftchild());
+            PreOrder(root->rightchild());
+        }
+    }else{
+        if(node){
+            Visit(node->value());
+            PreOrder(node->leftchild());
+            PreOrder(node->rightchild());
+        }
     }
-    cout << endl;
 }
 
 template <typename T>
-void BinaryTree<T>::InOrder(){
-    if(root != NULL){
-        InOrder(root->leftchild());
-        cout << root->value() << " ";
-        InOrder(root->rightchild());
+void BinaryTree<T>::InOrder(BinaryTreeNode<T> *node){
+    if(node == NULL){
+        if(root){
+            InOrder(root->leftchild());
+            Visit(root->value());
+            InOrder(root->rightchild());
+        }
+    }else{
+        if(node){
+            InOrder(node->leftchild());
+            Visit(node->value());
+            InOrder(node->rightchild());
+        }
     }
-    cout << endl;
 }
 
 template <typename T>
-void BinaryTree<T>::PostOrder(){
-    if(root != NULL){
-        PostOrder(root->leftchild());
-        PostOrder(root->rightchild());
-        cout << root->value() << " ";
+void BinaryTree<T>::PostOrder(BinaryTreeNode<T> *node){
+    if(node == NULL){
+        if(root){
+            PostOrder(root->leftchild());
+            PostOrder(root->rightchild());
+            Visit(root->value());
+        }
+    }else{
+        if(node){
+            PostOrder(node->leftchild());
+            PostOrder(node->rightchild());
+            Visit(node->value());
+        }
     }
-    cout << endl;
 }
 
 template <typename T>
@@ -140,7 +162,7 @@ void BinaryTree<T>::PreOrderWithoutRecursion(){
     BinaryTreeNode<T> *pointer = root;
     aStack.push(NULL);                              // 栈底监视哨
     while(pointer){
-        cout << pointer << " ";
+        Visit(pointer->value());
         if(pointer->rightchild() != NULL)           // 右孩子入栈
             aStack.push(pointer->rightchild());
         if(pointer->leftchild() != NULL)            // 转到左子树
@@ -163,7 +185,7 @@ void BinaryTree<T>::InOrderWithoutRecursion(){
         }else{                                      // 左子树访问完毕
             pointer = aStack.top();
             aStack.top();
-            cout << pointer->value() << " ";
+            Visit(pointer->value());
             pointer = pointer->rightchild();
         }
     }
@@ -201,11 +223,10 @@ void BinaryTree<T>::PostOrderWithoutRecursion(){
             aStack.push(element);
             pointer = pointer->rightchild();
         }else{
-            cout << pointer->value() << " ";
+            Visit(pointer->value());
             pointer = NULL;                         // 置空，继续弹栈
         }
     }
-    cout << endl;
 }
 
 template <typename T>
