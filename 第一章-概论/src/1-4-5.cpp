@@ -1,4 +1,4 @@
-// File:    1-3-5.cpp
+// File:    1-4-5.cpp
 // Author:  csh
 // Date:    2020/05/01
 // ===================
@@ -20,15 +20,9 @@ class Grade{
         Event e;                    // 项目名称
         int score;                  // 得分(成绩)
         Grade(){};
-        Grade(SchoolName sn, Sex s, Event e, int sc);
+        Grade(SchoolName sn, Sex s, Event ev, int sc)
+            : school{sn}, sex{s}, e{ev}, score{sc} {}
 };
-
-Grade::Grade(SchoolName sn, Sex s, Event e, int sc){
-    school = sn;
-    sex = s;
-    e = e;
-    score = sc;
-}
 
 
 class Sum{

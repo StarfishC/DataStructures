@@ -1,4 +1,4 @@
-// File:    1-3-3.cpp
+// File:    1-4-3.cpp
 // Author:  csh
 // Date:    2020/05/01
 // ===================
@@ -6,8 +6,6 @@
 
 #include <iostream>
 #include <climits>
-
-using namespace std;
 
 #define arrsize 300
 #define maxint INT_MAX
@@ -31,6 +29,7 @@ bool Solution(int i, int a[]){
 
 
 int main(){
+    using namespace std;
     int i = 3;
     int a[arrsize];
     Solution(i, a);

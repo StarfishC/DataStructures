@@ -1,4 +1,4 @@
-// File:    1-2-1.cpp
+// File:    1-3-1.cpp
 // Author:  csh
 // Date:    2020/07/20
 // ===================
@@ -15,8 +15,8 @@ class strings{
     public:
         string str;             // 数据域
         strings *pNext;         // 指针域
-        strings();
-        strings(string s){str = s;};
+        strings():str{""}{}
+        strings(string s):str{s}{}
 };
 
 /* 链表类 */
@@ -25,18 +25,25 @@ class LinkList{
         strings *head;
         int curlen;
     public:
-        LinkList(){
-            curlen = 0;
-            head = NULL;
-        }
+        LinkList(): head{nullptr}, curlen{0}{}
+        ~LinkList();
         int length(){return curlen;};       // 链表长度
         bool compare(string a, string b);   // 比较a,b字符串
-        void append(strings *s);            // 添加元素并排序
+        void append(string &s);             // 添加元素并排序
         void showAll();                     // 显示所有元素
 };
 
+LinkList::~LinkList(){
+    strings *temp;
+    while(head){
+        head = head->pNext;
+        temp = head;
+        delete temp;
+    }
+}
+
 bool LinkList::compare(string a, string b){
-    // 返回false表示a在前，b在后
+    // 返回true表示，b在a前
     auto i = a.begin();
     auto j = b.begin();
     while(i != a.end() && j != b.end()){
@@ -59,8 +66,6 @@ bool LinkList::compare(string a, string b){
                 return false;
             else return true;
         }
-        i++;
-        j++;
     }
     if(*i)      // 如果a没有迭代完，b迭代完了，b在a前
         return true;
@@ -68,26 +73,29 @@ bool LinkList::compare(string a, string b){
         return false;
 }
 
-void LinkList::append(strings *s){
+void LinkList::append(string &s){
     strings *current = head;
-    strings *previous = NULL;
+    strings *previous = nullptr;
     bool stop = false;
-    while(current != NULL && not stop){
-        if(compare(current->str, s->str))
+    while(current != nullptr && not stop){
+        if(compare(current->str, s))
             stop = true;
         else{
             previous = current;
             current = current->pNext;
         }
     }
-    if(previous == NULL){
+
+    strings *temp = new strings;
+    temp->str = s;
+    if(previous == nullptr){
         // previous没找到，即插入第一个
-        s->pNext = head;
-        head = s;
+        temp->pNext = head;
+        head = temp;
     }else{
         //在previos和current之间插入
-        s->pNext = current;
-        previous->pNext = s;
+        temp->pNext = current;
+        previous->pNext = temp;
     }
 }
 
@@ -101,11 +109,10 @@ void LinkList::showAll(){
 
 
 int main(){
-    strings a[8] = {strings("PAB"), strings("5C"), strings("PABC"), strings("CXY"),
-                    strings("CRSI"), strings("7"), strings("B899"), strings("B9")};
+    string a[] = {"PAB", "5C", "PABC", "CRSI", "7", "B899", "CXY", "B9"};
     LinkList list = LinkList();
     for(int i = 0; i < 8; i++){
-        list.append(&a[i]);
+        list.append(a[i]);
     }
     list.showAll();
     return 0;
