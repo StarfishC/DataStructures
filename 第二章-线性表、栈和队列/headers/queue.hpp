@@ -7,8 +7,6 @@
 #ifndef _Queue_H
 #define _Queue_H
 
-#include <cstddef>
-
 // ****************************** 队列的顺序存储 *******************************//
 template <typename T>
 class ArrQueue{
@@ -19,13 +17,13 @@ class ArrQueue{
         T *qu;                              // 存放队列元素的数组
     public:
         ArrQueue(int size);                 // 构造函数
-        ~ArrQueue();                        // 析构函数
+        virtual ~ArrQueue();                // 析构函数
         void clear();                       // 清空队列
         bool enQueue(const T item);         // 入队
         bool deQueue(T &item);              // 出队
         bool getFront(T &item);             // 返回队首元素
-        bool isEmpty();                     // 判断队列是否为空
-        bool isFull();                      // 判断队列是否已满
+        inline bool isEmpty();              // 判断队列是否为空
+        inline bool isFull();               // 判断队列是否已满
         int length();                       // 队列长度
 };
 
@@ -39,13 +37,9 @@ class Link{
         T data;                         // 数字域
         Link<T> *next;                  // 指针域，指向后继结点的指针
 
-        Link(const T info, Link<T>* nextLink=NULL){
-            this->data = info;
-            this->next = nextLink;
-        }
-        Link(Link<T>* nextLink=NULL){
-            this->next = nextLink;
-        }
+        Link(const T info, Link<T>* nextLink=nullptr):
+            data{info}, next{nextLink}{}
+        Link(Link<T>* nextLink=nullptr): next{nextLink}{}
 };
 
 
@@ -57,7 +51,7 @@ class LinkQueue{
         Link<T> *rear;              // 队尾指针
     public:
         LinkQueue();
-        ~LinkQueue();
+        virtual ~LinkQueue();
         void clear();               // 清空队列元素
         bool enQueue(const T item); // 入队
         bool deQueue(T &item);      // 出队

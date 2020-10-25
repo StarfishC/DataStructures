@@ -1,4 +1,4 @@
-// File:    tmp.cpp
+// File:    2-5-14.cpp
 // Author:  csh
 // Date:    2020/08/22
 // ===================
@@ -17,14 +17,10 @@ class MidToPost{
         bool isOperator(char op);           // 判断是否为操作符
     public:
         string mid;
-    public:
-        MidToPost(){};
-        MidToPost(string str){
-            mid = str;
-        }
+        MidToPost(){}
+        MidToPost(string str): mid{str}{}
         string transfer();                  // 转换成后缀表达式
 };
-
 
 bool MidToPost::isDigit(char num){
     if(num >= 48 && num <= 57)
@@ -58,11 +54,11 @@ bool MidToPost::isOperator(char op){
             return true;
         default:
             return false;
-    } 
+    }
 }
 
 string MidToPost::transfer(){
-    string post = "";    
+    string post = "";
     char top;                                   // 存储栈顶元素
     stack<char> sta = stack<char>();
     sta.push(';');                              // 栈底标志元素

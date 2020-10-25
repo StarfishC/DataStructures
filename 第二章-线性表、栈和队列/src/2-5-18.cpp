@@ -1,4 +1,4 @@
-// File:    2-2-18.cpp
+// File:    2-5-18.cpp
 // Author:  csh
 // Date:    2020/06/13
 // ===================
@@ -26,6 +26,7 @@ class Queue{
         ~Queue(){
             for(int i = 0; i < rankNum; i++)
                 delete []Qrank[i];
+            delete [] CurrNum;
         }
         void enQueue(T data, int dataRank){
             if(dataRank >= rankNum || CurrNum[dataRank] >= maxNum)

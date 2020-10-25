@@ -1,68 +1,43 @@
 // File:    2-5-2.cpp
 // Author:  csh
-// Date:    2020/08/23
+// Date:    2020/05/30
 // ===================
 
+
 #include <iostream>
+#include "../headers/linear.hpp"
 
-using namespace std;
 
-class Queue{
-    private:
-        int *qu;
-        int front;
-        int count;
-        int msize;
+template <typename T>
+class NewLink:public LinkList<T>{
     public:
-        Queue(int size){
-            msize = size;
-            qu = new int[msize];
-            count = 0;
-            front = 0;
-        }
-        ~Queue(){
-            delete [] qu;
-        }
-        bool isEmpty(){
-            return count == 0;
-        }
-        bool enQueue(int item){
-            if(count == msize){
-                cout << "队列满，不能入队" << endl;
-                return false;
+        void insert(T value1, T value2){
+            using namespace std;
+            Link<T> *tmp = this->head;
+            int count;
+            while(tmp && tmp->next){
+                if(tmp->next->data == value1){
+                    Link<T> *p = new Link<T>(value2);
+                    p->next = tmp->next;
+                    tmp->next = p;
+                    tmp = p;        // 因加入一个结点，需要指向该结点，才能指向下一个为访问结点
+                    count++;
+                }
+                tmp = tmp->next;
             }
-            int rear;       // 待入队位置
-            rear = (front + count) % msize;
-            qu[rear] = item;
-            count++;
-            return true;
-        }
-        bool deQueue(int &item){
-            if(count == 0){
-                cout << "队列空，不能出队" << endl;
-                return false;
-            }
-            item = qu[front];
-            front = (front + 1) % msize;
-            count --;
-            return false;
+            if(count == 0)
+                cout << "No such an element" << endl;
         }
 };
 
 
 int main(){
-    Queue q = Queue(5);
-    q.enQueue(1);
-    q.enQueue(2);
-    q.enQueue(3);
-    q.enQueue(4);
-    q.enQueue(5);
-
-    int ret;
-    while(!q.isEmpty()){
-        q.deQueue(ret);
-        cout << ret << " ";
-    }
-    cout << endl;
-    return 0;
+    NewLink<int> a = NewLink<int>();
+    a.append(2);
+    a.append(3);
+    a.append(3);
+    a.append(4);
+    a.append(4);
+    a.insert(3, 1000);
+    a.showAll();
 }

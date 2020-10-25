@@ -21,9 +21,9 @@ class ArrStack{
         void clear();                           // 清空栈元素
         bool push(const T item);                // 入栈
         bool pop(T &item);                      // 出栈并返回栈顶元素
-        bool peek(T &item);                      // 只返回栈顶内容
-        bool isEmpty();                         // 判断栈空
-        bool isFull();                          // 判断栈满
+        bool peek(T &item);                     // 只返回栈顶内容
+        inline bool isEmpty();                  // 判断栈空
+        inline bool isFull();                   // 判断栈满
 };
 
 template <typename T>
@@ -100,13 +100,9 @@ class Link{
         T data;                         // 数字域
         Link<T> *next;                  // 指针域，指向后继结点的指针
 
-        Link(const T info, Link<T>* nextLink=NULL){
-            this->data = info;
-            this->next = nextLink;
-        }
-        Link(Link<T>* nextLink=NULL){
-            this->next = nextLink;
-        }
+        Link(const T info, Link<T>* nextLink=nullptr):
+            data{info}, next{nextLink}{}
+        Link(Link<T>* nextLink=nullptr): next{nextLink}{}
 };
 
 template <typename T>
@@ -116,7 +112,7 @@ class LinkStack{
         int size;                       // 存放栈元素的个数
     public:
         LinkStack();                    // 构造函数
-        ~LinkStack();                   // 析构函数
+        virtual ~LinkStack();                   // 析构函数
         void clear();                   // 清空栈内容
         bool push(const T item);        // 入栈
         bool pop(T &item);              // 出栈
@@ -124,10 +120,7 @@ class LinkStack{
 };
 
 template <typename T>
-LinkStack<T>::LinkStack(){
-    top = NULL;
-    size = 0;
-}
+LinkStack<T>::LinkStack(): top{nullptr}, size{0}{}
 
 template <typename T>
 LinkStack<T>::~LinkStack(){
@@ -136,7 +129,7 @@ LinkStack<T>::~LinkStack(){
 
 template <typename T>
 void LinkStack<T>::clear(){
-    while(top != NULL){
+    while(top){
         Link<T> *tmp = top;
         top = top->next;
         delete tmp;
@@ -161,9 +154,9 @@ bool LinkStack<T>::pop(T &item){
         return false;
     }
     item = top->data;
-    tmp = top->next;
-    delete top;
-    top = tmp;
+    tmp = top;
+    top = top->next;
+    delete tmp;
     size --;
     return true;
 }

@@ -21,8 +21,8 @@ class ArrQueue{
         bool enQueue(const T item);         // 入队
         bool deQueue(T &item);              // 出队
         bool getFront(T &item);             // 返回队首元素
-        bool isEmpty();                     // 判断队列是否为空
-        bool isFull();                      // 判断队列是否已满
+        inline bool isEmpty();              // 判断队列是否为空
+        inline bool isFull();               // 判断队列是否已满
         int length();                       // 队列长度
 };
 
@@ -111,11 +111,11 @@ class Link{
         T data;                         // 数字域
         Link<T> *next;                  // 指针域，指向后继结点的指针
 
-        Link(const T info, Link<T>* nextLink=NULL){
+        Link(const T info, Link<T>* nextLink=nullptr){
             this->data = info;
             this->next = nextLink;
         }
-        Link(Link<T>* nextLink=NULL){
+        Link(Link<T>* nextLink=nullptr){
             this->next = nextLink;
         }
 };
@@ -129,7 +129,7 @@ class LinkQueue{
         Link<T> *rear;              // 队尾指针
     public:
         LinkQueue();
-        ~LinkQueue();
+        virtual ~LinkQueue();
         void clear();               // 清空队列元素
         bool enQueue(const T item); // 入队
         bool deQueue(T &item);      // 出队
@@ -141,7 +141,7 @@ class LinkQueue{
 template <typename T>
 LinkQueue<T>::LinkQueue(){
     size = 0;
-    front = rear = NULL;
+    front = rear = nullptr;
 }
 
 template <typename T>
@@ -151,21 +151,21 @@ LinkQueue<T>::~LinkQueue(){
 
 template <typename T>
 void LinkQueue<T>::clear(){
-    while(front != NULL){
+    while(front != nullptr){
         rear = front;
         front = front->next;
         delete rear;
     }
-    rear = NULL;
+    rear = nullptr;
     size = 0;
 }
 
 template <typename T>
 bool LinkQueue<T>::enQueue(const T item){
     if(isEmpty())
-        front = rear = new Link<T>(item, NULL);
+        front = rear = new Link<T>(item, nullptr);
     else{
-        rear = new Link<T>(item, NULL);
+        rear = new Link<T>(item, nullptr);
         rear = rear->next;
     }
     size++;
@@ -184,8 +184,8 @@ bool LinkQueue<T>::deQueue(T &item){
     tmp = front;
     front = front->next;
     delete tmp;
-    if(front == NULL)
-        rear = NULL;
+    if(front == nullptr)
+        rear = nullptr;
     size--;
     return true;
 }

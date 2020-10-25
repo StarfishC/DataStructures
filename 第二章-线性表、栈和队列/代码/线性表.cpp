@@ -133,7 +133,7 @@ bool ArrList<T>::remove(const int p){
 
 template <typename T>
 bool ArrList<T>::getPos(int &p, const T value){
-    for(int i = 0; i < this->maxSize-1; i++){
+    for(int i = 0; i < maxSize-1; i++){
         if(value == aList[i]){
             p = i;
             return true;
@@ -166,13 +166,9 @@ class Link{
         T data;             // 数字域
         Link<T> *next;      // 指针域，指向后继结点的指针
 
-        Link(const T info, Link<T>* nextLink=NULL){
-            this->data = info;
-            this->next = nextLink;
-        }
-        Link(Link<T>* nextLink=NULL){
-            this->next = nextLink;
-        }
+        Link(const T info, Link<T>* nextLink=nullptr):
+            data{info}, next{nextLink} {}
+        Link(Link<T>* nextLink=nullptr): next{nextLink}{}
 };
 
 // 单链表
@@ -203,7 +199,7 @@ LinkList<T>::LinkList(){
 template <typename T>
 LinkList<T>::~LinkList(){
     Link<T> *tmp;
-    while(head != NULL){
+    while(head){
         tmp = head;
         head = head->next;
         delete tmp;
@@ -212,12 +208,17 @@ LinkList<T>::~LinkList(){
 
 template <typename T>
 Link<T>* LinkList<T>::setPos(const int p){
+    using std::cout;
+    using std::endl;
     int count = 0;
-    if(p == 0){                                // 0定位到头结点
+    if(p == -1)                                // -1定位到头结点
         return head;
+    if(p >= length()){
+        cout << "位置超出链表长度" << endl;
+        return nullptr;
     }
-    Link<T> *tmp = new Link<T>(head);          // 1则定位第一个结点
-    while(tmp != NULL && count <= p){
+    Link<T> *tmp = head->next;                 // 0则定位第一个结点
+    while(tmp != nullptr && count < p){
         tmp = tmp->next;
         count++;
     }
@@ -226,14 +227,7 @@ Link<T>* LinkList<T>::setPos(const int p){
 
 template <typename T>
 void LinkList<T>::clear(){
-    Link<T> *tmp;
-    Link<T> *next;
-    tmp = head->next;
-    while(tmp){
-        next = tmp->next;
-        delete tmp;
-        tmp = next;
-    }
+    ~LinkList();
     head = tail = new Link<T>;
 }
 
@@ -241,7 +235,7 @@ template <typename T>
 int LinkList<T>::length(){
     int count = 0;
     Link<T> *tmp = head->next;
-    while(tmp != NULL){
+    while(tmp){
         count ++;
         tmp = tmp->next;
     }
@@ -267,7 +261,7 @@ bool LinkList<T>::insert(const int p, const T value){
     using std::cout;
     using std::endl;
     Link<T> *pre, *q;
-    if((pre = setPos(p-1)) == NULL){            // p是第i个节点的前驱
+    if((pre = setPos(p-1)) == nullptr){            // p是第i个节点的前驱
         cout << "Insertion point is illegal" << endl;
         return false;
     }
@@ -283,16 +277,16 @@ bool LinkList<T>::remove(const int p){
     using std::cout;
     using std::endl;
     Link<T> *pre, *cur;
-    if((pre = setPos(p-1)) == NULL || pre == tail){
+    if((pre = setPos(p-1)) == nullptr || pre == tail){
         cout << "Removal point is illegal" << endl;
         return false;
     }
-    cur = pre->next;                            // 待删节点
-    if(cur == this->tail){                      // 待删节点为尾节点
-        this->tail = pre;
-        pre->next = NULL;
+    cur = pre->next;                      // 待删节点
+    if(cur == tail){                      // 待删节点为尾节点
+        tail = pre;
+        pre->next = nullptr;
         delete cur;
-    }else if(cur != NULL){
+    }else if(cur != nullptr){
         pre->next = cur->next;
         delete cur;
     }
@@ -302,8 +296,8 @@ bool LinkList<T>::remove(const int p){
 template <typename T>
 bool LinkList<T>::getPos(int &p, const T value){
     Link<T> *tmp = head->next;
-    int count = 0;
-    while(tmp != NULL){
+    int count = -1;
+    while(tmp != nullptr){
         count ++;
         if(tmp->data == value){
             p = count;
@@ -319,7 +313,7 @@ bool LinkList<T>::getValue(const int p, T &value){
     using std::cout;
     using std::endl;
     Link<T> *tmp;
-    if((tmp = setPos(p)) == NULL){
+    if((tmp = setPos(p)) == nullptr){
         cout << "Location is illegal" << endl;
         return false;
     }
@@ -332,7 +326,7 @@ void LinkList<T>::showAll(){
     using std::cout;
     using std::endl;
     Link<T> *tmp = head->next;
-    while(tmp != NULL){
+    while(tmp != nullptr){
         cout << tmp->data << " ";
         tmp = tmp->next;
     }
@@ -349,12 +343,12 @@ class DLink{
         T data;
         DLink<T> *prev;                 // 指向前驱节点的指针
         DLink<T> *next;                 // 指向后继节点的指针
-        DLink(const T info, DLink<T> *preValue=NULL, DLink<T> *nextValue=NULL){
+        DLink(const T info, DLink<T> *preValue=nullptr, DLink<T> *nextValue=nullptr){
             data = info;
             prev = preValue;
             next = nextValue;
         }
-        DLink(DLink<T> *preValue=NULL, DLink<T> *nextValue=NULL){
+        DLink(DLink<T> *preValue=nullptr, DLink<T> *nextValue=nullptr){
             next = nextValue;
             prev = preValue;
         }
@@ -368,7 +362,7 @@ class DLinkList{
         DLink<T> *setPos(const int p);          // 指向第p个元素的指针
     public:
         DLinkList(){
-            head = tail = new DLink<T>(NULL, NULL);
+            head = tail = new DLink<T>(nullptr, nullptr);
         }
 };
 // *****************************************************************************//

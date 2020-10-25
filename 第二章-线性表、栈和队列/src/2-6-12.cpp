@@ -1,13 +1,13 @@
-// File:    test.cpp
+// File:    2-6-12.cpp
 // Author:  csh
-// Date:    2020/07/18
+// Date:    2020/10/25
 // ===================
 
 
 #include <iostream>
 #include <stack>
-using namespace std;
 
+using namespace std;
 
 void test(int &sum){
     int x;
@@ -18,7 +18,7 @@ void test(int &sum){
         test(sum);
         sum += x;
     }
-    cout << sum;
+    cout << sum << endl;
 }
 
 void test2(){
@@ -39,8 +39,11 @@ void test2(){
     cout << endl;
 }
 
+
 int main(){
-    int sum = 0;
+    int sum = 100;
+    test(sum);
+    cout << "test2: " << endl;
     test2();
     return 0;
 }

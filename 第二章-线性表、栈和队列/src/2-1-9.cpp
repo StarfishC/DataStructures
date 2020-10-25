@@ -4,14 +4,14 @@
 // ===================
 
 
-#include "../headers/linear.hpp" 
+#include "../headers/linear.hpp"
 
 void Solution(LinkList<int>* A, LinkList<int>* B, LinkList<int>* C){
     Link<int>* tmpA;
     Link<int>* tmpB;
-    
-    tmpA = A->getHead()->next;          // 指向A的第一个节点
-    tmpB = B->getHead()->next;          // 指向B的第一个节点
+
+    tmpA = A->getFirst();          // 指向A的第一个节点
+    tmpB = B->getFirst();          // 指向B的第一个节点
 
     while(tmpA && tmpB){
         if(tmpA->data == tmpB->data){

@@ -1,4 +1,4 @@
-// File:    2-3-3.cpp
+// File:    2-1-3.cpp
 // Author:  csh
 // Date:    2020/08/02
 // ===================
@@ -30,7 +30,7 @@ bool LinkList2<T>::deleteMiddleElem(int mink, int maxk){
             pre->next = cur->next;      // 跳过待删除结点
             tmp = cur;
             cur = cur->next;
-            free(tmp);
+            delete tmp;
         }
     }
     return true;

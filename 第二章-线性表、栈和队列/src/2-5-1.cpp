@@ -1,4 +1,4 @@
-// File:    2-2-1.cpp
+// File:    2-5-1.cpp
 // Author:  csh
 // Date:    2020/05/30
 // ===================
@@ -23,6 +23,7 @@ class LinkAddr{                             // 存放地址的链表
         ListNode<T> *head;                  // 地址链表头指针
         LinkAddr(){
             head = new ListNode<T>;
+            head->next = nullptr;
         };
         ~LinkAddr(){
             ListNode<T> *tmp;
@@ -39,8 +40,8 @@ class LinkAddr{                             // 存放地址的链表
 
 template <typename T>
 void LinkAddr<T>::find(T a, LinkList<T>* p){
-    Link<T> *tmp = p->getHead()->next;
-    while(tmp != NULL){
+    Link<T> *tmp = p->getFirst();
+    while(tmp != nullptr){
         if(tmp->data == a){
             ListNode<T> *q = new ListNode<T>;
             q->L = tmp;
@@ -54,7 +55,7 @@ void LinkAddr<T>::find(T a, LinkList<T>* p){
 template <typename T>
 void LinkAddr<T>::showAll(){
     ListNode<T> *tmp = head->next;
-    while(tmp != NULL){
+    while(tmp != nullptr){
         cout << tmp->L << "  ";
         cout << (tmp->L)->data << endl;
         tmp = tmp->next;

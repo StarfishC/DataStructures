@@ -7,7 +7,6 @@
 #include <iostream>
 #include "../headers/linear.hpp"
 
-using namespace std;
 
 // 创建一个循环链表类
 // 若加入尾指针会更方便
@@ -32,6 +31,7 @@ class LoopLink{
         }
         bool addLink(Link<T> *l){
             Link<T> *p = head;
+            // 找到循环链表最后一个节点
             while(p->next != head)
                 p = p->next;
             l->next = head;
@@ -41,15 +41,13 @@ class LoopLink{
         bool addValue(T c){
             Link<T> *tmp;
             tmp = new Link<T>(c);
-            // 找到循环链表最后一个节点
-            Link<T> *p = head;
-            while(p->next != head)
-                p = p->next;
-            tmp->next = p->next;
-            p->next = tmp;
-            return true;
+            if(addLink(tmp))
+                return true;
+            return false;
         }
         void showAll(){
+            using std::cout;
+            using std::endl;
             Link<T> *tmp;
             tmp = head->next;
             while(tmp != head){
@@ -63,14 +61,25 @@ class LoopLink{
 template <typename T>
 class LinkList2:public LinkList<T>{
     public:
-        void setHead(){                         // 设置头节点下一个节点为NULL，方便析构
-            this->head->next = NULL;
+        ~LinkList2(){
+            Link<T> *tmp;
+            while(this->head){
+                tmp = this->head;
+                this->head = this->head->next;
+                delete tmp;
+            }
+        }
+        Link<T>* getHead(){
+            return this->head;
+        }
+        void setHead(){                         // 设置头节点下一个节点为nullptr，方便析构
+            this->head->next = nullptr;
         }
 };
 
 void split(LinkList2<char>* L, LoopLink<char>* a, LoopLink<char>* d, LoopLink<char>* o){
     Link<char> *tmp = L->getHead()->next;
-    // L->setHead();
+    L->setHead();
     Link<char> *save;
     while(tmp){
         save = tmp->next;
@@ -102,5 +111,9 @@ int main(){
     y->showAll();
     z->showAll();
 
+    delete a;
+    delete x;
+    delete y;
+    delete z;
     return 0;
 }

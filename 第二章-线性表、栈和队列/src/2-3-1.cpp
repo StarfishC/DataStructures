@@ -1,4 +1,4 @@
-// File:    2-3-13.cpp
+// File:    2-3-1.cpp
 // Author:  csh
 // Date:    2020/08/23
 // ===================
@@ -27,12 +27,12 @@ class LoopQueue{
         void clear(){               // 清空队列
             front = rear;
         }
-        bool isEmpty();             // 队列是否为空
-        bool isFull();              // 队列是否已满
-        bool enQueue(T item);       // 入队
+        inline bool isEmpty();      // 队列是否为空
+        inline bool isFull();       // 队列是否已满
+        bool enQueue(const T &item);// 入队
         bool deQueue(T &item);      // 出队
         bool deRear(T &item);       // 队尾删除
-        bool enFront(T item);       // 队首插入
+        bool enFront(const T &item);// 队首插入
         void showAll();             // 显示队列所有元素
 };
 
@@ -48,7 +48,7 @@ bool LoopQueue<T>::isFull(){
 }
 
 template <typename T>
-bool LoopQueue<T>::enQueue(T item){
+bool LoopQueue<T>::enQueue(const T &item){
     if(isFull()){
         cout << "队列满，不能入队" << endl;
         return false;
@@ -81,13 +81,13 @@ bool LoopQueue<T>::deRear(T &item){
 }
 
 template <typename T>
-bool LoopQueue<T>::enFront(T item){
+bool LoopQueue<T>::enFront(const T &item){
     if(isFull()){
         cout << "队列满，不能队首入队" << endl;
         return false;
     }
     front = (front + mSize - 1) % mSize;
-    qu[front] = item; 
+    qu[front] = item;
     return true;
 }
 
@@ -97,7 +97,7 @@ void LoopQueue<T>::showAll(){
     while(tmp != rear){
         cout << qu[tmp] << " ";
         tmp = (tmp + 1) % mSize;
-    } 
+    }
     cout << endl;
 }
 

@@ -1,4 +1,4 @@
-// File:    2-3-14.cpp
+// File:    2-3-5.cpp
 // Author:  csh
 // Date:    2020/08/23
 // ===================
@@ -18,7 +18,7 @@ class LoopLink{
         LoopLink();
         ~LoopLink();
         bool isEmpty();
-        bool enQueue(T item);
+        bool enQueue(const T &item);
         bool deQueue(T &item);
         void showAll();
 };
@@ -26,23 +26,19 @@ class LoopLink{
 
 template <typename T>
 LoopLink<T>::LoopLink(){
-    head = rear = new Link<T>();
+    head = new Link<T>();
     head->next = head;
+    rear = head;
     len = 0;
 }
 
 template <typename T>
 LoopLink<T>::~LoopLink(){
-    if(head == rear)
-        delete head;
-    else{
-        Link<T> *tmp;
+    rear->next = nullptr;
+    Link<T> *tmp;
+    while(head){
         tmp = head;
-        while(tmp != rear){
-            head = head->next;
-            delete tmp;
-            tmp = head;
-        }
+        head = head->next;
         delete tmp;
     }
 }
@@ -53,7 +49,7 @@ bool LoopLink<T>::isEmpty(){
 }
 
 template <typename T>
-bool LoopLink<T>::enQueue(T item){
+bool LoopLink<T>::enQueue(const T &item){
     Link<T> *tmp = new Link<T>(item);
     if(head == rear){
         head->next = tmp;

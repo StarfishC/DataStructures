@@ -1,4 +1,4 @@
-// File:    2-3-1.cpp
+// File:    2-1-1.cpp
 // Author:  csh
 // Date:    2020/06/13
 // ===================
@@ -25,7 +25,7 @@ class List{
         }
         bool insert(const T value){
             int left, right, mid;
-            left = 1;
+            left = 0;
             right = curLen;
             if(curLen >= maxSize){
                 cout << "顺序表已满" << endl;
@@ -46,8 +46,6 @@ class List{
                         break;
                     right = mid - 1;
                 }
-                else
-                    break;
             }
             // mid后的所有元素后移一个位置
             for(int i = curLen-1; i >= mid; i--)
@@ -71,5 +69,6 @@ int main(){
     a.insert(8);
     a.insert(9);
     a.insert(7);
+    a.insert(6);
     a.showAll();
 }

@@ -23,7 +23,7 @@ void Solution(ArrList<int>* A, ArrList<int>* B, ArrList<int>* C){
         }
         else if(valueA > valueB)        // A大B小,j++
             j++;
-        else if(valueA < valueB)
+        else
             i++;
     }
 }

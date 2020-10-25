@@ -1,4 +1,4 @@
-// File:    2-3-9.cpp
+// File:    2-1-10.cpp
 // Author:  csh
 // Date:    2020/07/18
 // ===================
@@ -7,11 +7,10 @@
 #include <stack>
 #include <iostream>
 
-using namespace std;
-
 typedef char Elem;
 
 bool isMatch(Elem *E, int length){
+    using std::stack;
     stack<Elem> s;
     for(int i = 0; i < length; i++){
         if(E[i] == '(')
@@ -23,7 +22,7 @@ bool isMatch(Elem *E, int length){
                 s.pop();
             }
         }
-    }    
+    }
     // 遍历完毕后栈空，那么匹配成功
     if(s.empty()) return true;
     return false;
@@ -31,6 +30,7 @@ bool isMatch(Elem *E, int length){
 
 
 int main(){
+    using namespace std;
     Elem E[] = {'a', 'b', 'c', '(', ')'};
     bool ret;
     ret = isMatch(E, 5);
