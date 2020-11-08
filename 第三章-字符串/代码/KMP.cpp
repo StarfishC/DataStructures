@@ -13,7 +13,7 @@ using namespace std;
 
 // 下列两个来自B站
 void prefix_table(char pattern[], int prefix[], int n);
-int KMP(char text[], char pattern[]);
+void KMP(char text[], char pattern[]);
 
 
 // 以下两个来自教材
@@ -22,16 +22,19 @@ int KMPStrMatching(const string &T, const string &P, int *N);
 
 
 int main(){
-    string target = "abaacababcac";
-    string pattern = "ababc";
+    string target = "abaacababcacababcabaas";
+    string pattern = "ababcabaa";
+    char target2[] = "abaacababcacababcabaas";
+    char pattern2[] = "ababcabaa";
+    KMP(target2, pattern2);
     int *N = findNext(pattern);
     int pos = KMPStrMatching(target, pattern, N);
     cout << pos << endl;
+
     return 0;
 }
 
 
-// 与findNext一样，但未经优化
 void prefix_table(char pattern[], int prefix[], int n){
     prefix[0] = 0;
     int len = 0;
@@ -46,6 +49,7 @@ void prefix_table(char pattern[], int prefix[], int n){
                 len = prefix[len-1];
             else
                 prefix[i] = len;            // 此时len=0
+            i++;
         }
     }
 
@@ -53,9 +57,13 @@ void prefix_table(char pattern[], int prefix[], int n){
     for(int i = n-1; i > 0; i--)
         prefix[i] = prefix[i-1];
     prefix[0] = -1;
+    cout << "prefix_table: ";
+    for(int i = 0; i < n; i++)
+        cout << prefix[i] << " ";
+    cout << endl;
 }
 
-int KMP(char text[], char pattern[]){
+void KMP(char text[], char pattern[]){
     int m = strlen(text);
     int n = strlen(pattern);
     int *next = (int*)malloc(sizeof(int)*n);
@@ -78,7 +86,6 @@ int KMP(char text[], char pattern[]){
             }
         }
     }
-    return i - j;
 }
 
 int *findNext(string P){
@@ -100,6 +107,10 @@ int *findNext(string P){
         else
             next[i] = k;                // 不需要优化
     }
+    cout << "findnext: ";
+    for(int i = 0; i < m; i++)
+        cout << next[i] << " ";
+    cout << endl;
     return next;
 }
 

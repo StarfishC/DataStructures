@@ -11,7 +11,7 @@
 
 int main(){
     using namespace std;
-    string A = "";
+    string A = " ";
     string B = "MULE";
     string C = "OLD";
     string D = "MY";
