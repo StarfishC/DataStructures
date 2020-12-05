@@ -6,7 +6,7 @@
 
 template <typename T>
 int BinaryTree<T>::height(BinaryTreeNode<T> *node){
-    if(node == NULL)
+    if(node == nullptr)
         return 0;
     int h1 = height(node->leftChild()) + 1;
     int h2 = height(node->rightChile()) + 1;

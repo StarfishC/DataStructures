@@ -6,9 +6,9 @@
 
 
 template <typename T>
-int BinaryTree<T>::leftNumber(BinaryTreeNode<T> *node){
+int BinaryTree<T>::leafNumber(BinaryTreeNode<T> *node){
     if(node == nullptr) return 0;
     if(node->isLeaf()) return 1;
-    return leftNumber(node->leftChild()) + leftNumber(node->rightChild());
+    return leafNumber(node->leftChild()) + leafNumber(node->rightChild());
 }
 
