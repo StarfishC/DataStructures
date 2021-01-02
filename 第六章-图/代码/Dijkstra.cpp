@@ -119,7 +119,7 @@ void Prim(Graph &G, int s, Edge * &MST){
             }
     }
     v = minVertex(G, D);
-    G.mark[v] = VISITED; 
+    G.mark[v] = VISITED;
     Edge edge(D[v].pre, D[v].index, D[v].length);
     AddEdgeToMST(edge, MST, MSTtag++);
 }

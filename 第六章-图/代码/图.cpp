@@ -44,16 +44,9 @@ class Graph{
 };
 
 
-Graph::Graph(int numVert){
-        numVertex = numVert;
-        numEdge = 0;
-        indegree = new int[numVert];
-        mark = new int[numVert];
-        for(int i = 0; i < numVert; i++){
-            mark[i] = UNVISITED;
-            indegree[i] = 0;
-        }
-}
+Graph::Graph(int numVert): numVertex(numVert), numEdge(0),
+                           indegree(new int[numVert]{0}),
+                           mark(new int[numVert]{UNVISITED}){}
 
 Graph::~Graph(){
     delete [] mark;
@@ -88,10 +81,7 @@ Graphm::Graphm(int numVert): Graph(numVert){
     int i, j;
     matrix = new int *[numVertex];
     for(i = 0; i < numVertex; i++)
-        matrix[i] = new int[numVertex];
-    for(i = 0; i < numVertex; i++)                      // 相邻矩阵所有元素初始化为0
-        for(j = 0; j < numVertex; j++)
-            matrix[i][j] = 0;
+        matrix[i] = new int[numVertex]{0};
 }
 
 Edge Graphm::firstEdge(int oneVertex){
