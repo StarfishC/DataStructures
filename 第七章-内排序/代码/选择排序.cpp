@@ -1,37 +1,40 @@
 // File:    选择排序.cpp
 // Author:  csh
-// Date:    2020/10/04
+// Date:    2021/01/02
 // ===================
 
-#include <iostream>
 
 
+// 直接选择排序
 template <typename T>
-void swap(T array[], int i, int smallest){
-    T tmp = array[i];
-    array[i] = array[smallest];
-    array[smallest] = tmp;
-}
-
-template <typename T>
-void SelectSort(T array[], int n){
+void SelectSort(T array[], int n)
+{
     int i, j, smallest;
-    for(i = 0; i < n-1; i++){
+    for(i = 0; i < n - 1; i++)
+    {
         smallest = i;
-        for(j = i + 1; j < n; j++)
+        for(j = i+1; j < n; j++)
             if(array[j] < array[smallest])
                 smallest = j;
         swap(array, i, smallest);
     }
 }
 
-
-int main(int argc, char *argv[])
+template <typename T>
+void swap(T arr, int i, int j)
 {
-    using namespace std;
-    int array[] = {45, 34, 78, 12, 34, 32, 29, 64};
-    SelectSort(array, 8);
-    for(int i = 0; i < 8; i++)
-        cout << array[i] << " ";
-    return 0;
+    T tmp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = tmp;
+}
+
+
+// 用最大堆
+// 最大元素移到最后一个位置，并将堆规模减一
+template <typename T>
+void SelectSort2(T array[], int n)
+{
+    MaxHeap<T> minHeap = MaxHeap<T>(arr, n, n);
+    for(int i = 0; i < n-1; i++)
+        minHeap.removeMax();            // 算法操作n-1次，最小元素不需要出堆
 }
