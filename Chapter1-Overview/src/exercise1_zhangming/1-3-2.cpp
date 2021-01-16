@@ -7,12 +7,15 @@
 #include <iostream>
 
 
-int* solution(double *A, int N, int *ret){
+int* solution(double *A, int N, int *ret)
+{
     // ret用来记录最大值所在的位置
     int position = 0;               // 初始化设定数组的第一个元素
     int j = 1;                      // 控制最大值数组的存放
-    for(int i = 1; i < N; i++){
-        if(A[i] > A[position]){
+    for(int i = 1; i < N; i++)
+    {
+        if(A[i] > A[position])
+        {
             position = i;           // 更新最大值元素的位置
             j = 1;                  // 重置ret数组的下一个存放位置，0号位置预留给position
         }else if(A[i] == A[position])
@@ -25,7 +28,8 @@ int* solution(double *A, int N, int *ret){
 }
 
 
-int main(){
+int main()
+{
     using namespace std;
     double Num[] = {4529.9, 88, 333, 22, 100, 232.3, 4529.9};
     int N = sizeof(Num)/sizeof(double);

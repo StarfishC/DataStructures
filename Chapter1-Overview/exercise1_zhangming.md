@@ -1,5 +1,7 @@
 # 第一章 概论
 
+⚠ _注：缺少的题号表示习题重复_
+
 ## 1.1 教材习题
 
 ### 1.1.1 设计一个算法，自大到小依次输出顺序读入的三个整数 $x,y,z$ 的值
@@ -251,7 +253,7 @@ for(i = 1; i <= n; i++)
 
 ### 1.3.1 设字符集为字母和数字的集合，字符的顺序为 $A,B,C,...,Z,0,1,3...9$,请将下列字符串按字典顺序排列、存储：$PAB,5C,PABC,CXY,CRSI,7,B899,B9$，并分析可以采取的存储方案
 
-> **解答：** _[code 1-3-1.cpp](./src/1-3-1.cpp)_
+> **解答：** _[code 1-3-1.cpp](./src/exercise1_zhangming/1-3-1.cpp)_
 >
 > 可以采用的存储结构有顺序数组和链表以及索引等方式
 >
@@ -276,6 +278,13 @@ for(i = 1; i <= n; i++)
 >    - 优点：由于单词长度不同，在存储时充分考虑了这个因素，可以节省空间。此外由于交换的不是单词本身二是单词的地址，可以节省时间，从空间和时间两方面得到优化。
 >
 > ```cpp
+> // File:    1-3-1.cpp
+> // Author:  csh
+> // Date:    2020/07/20
+> // Update:  2020/01/16
+> // ===================
+>
+>
 > #include <iostream>
 > #include <string>
 >
@@ -283,131 +292,134 @@ for(i = 1; i <= n; i++)
 >
 >
 > // 1. 用链表
-> class strings{
+> class Node
+> {
 >     public:
->         string str;             // 数据域
->         strings *pNext;         // 指针域
->         strings():str{""}{}
->         strings(string s):str{s}{}
+>         string str;
+>         Node *pNext;
+>
+>         Node(const string s): str(s),pNext(nullptr){}
+>         Node(): str(""), pNext(nullptr){}
 > };
 >
 > /* 链表类 */
-> class LinkList{
+> class LinkList
+> {
 >     private:
->         strings *head;
->         int curlen;
+>         Node *head;
+>         int curLen;
 >     public:
->         LinkList(): head{nullptr}, curlen{0}{}
+>         LinkList(): head(new Node()), curLen(0){}
 >         ~LinkList();
->         int length(){return curlen;};       // 链表长度
->         bool compare(string a, string b);   // 比较a,b字符串
->         void append(string &s);             // 添加元素并排序
->         void showAll();                     // 显示所有元素
+>         int size() const { return curLen; }
+>         bool compare(const string &a, const string &b);     // 比较a,b字符串
+>         void append(const string &s);                       // 添加元素并排序
+>         void showAll();
 > };
 >
-> LinkList::~LinkList(){
->     strings *temp;
+> LinkList::~LinkList()
+> {
+>     Node *temp;
 >     while(head){
->         head = head->pNext;
 >         temp = head;
+>         head = head->pNext;
 >         delete temp;
 >     }
 > }
 >
-> bool LinkList::compare(string a, string b){
->     // 返回true表示，b在a前
+> bool LinkList::compare(const string &a, const string &b)
+> {
+>     // 返回true表明b在a前，false表明a在b前
 >     auto i = a.begin();
 >     auto j = b.begin();
->     while(i != a.end() && j != b.end()){
->         // 1.字符相等情况
->         if(*i == *j){
+>     while(i != a.end() && j != b.end())
+>     {
+>         // 1. 字符相等
+>         if(*i == *j)
+>         {
 >             i++;
 >             j++;
 >             continue;
 >         }
 >
 >         // 2.字符均为A-Z或均为0-9情况
->         if((*i - 'A' >= 0 && (*j - 'A' >= 0)) || ((*i - 'A' < 0) && (*j - 'A' < 0))){
->             if(*i - *j < 0)     // 如B-A>0,A在B前
+>         if((*i - 'A' >= 0 && *j - 'A' >= 0) || (*i - 'A' < 0 && *j - 'A' < 0))
+>         {
+>             if(*i - *j < 0)         // 如B-A>0，A在B前
 >                 return false;
->             else
->                 return true;
+>             else return true;
 >         }else{
->         // 3.一个字符A-Z，一个0-9
->             if(*i - *j > 0)     // 如A-5>0,A在5前
+>         // 3. 一个字符A-Z，一个0-9
+>             if(*i - *j > 0)         // 如A-5>0，A在5前
 >                 return false;
 >             else return true;
 >         }
 >     }
->     if(*i)      // 如果a没有迭代完，b迭代完了，b在a前
->         return true;
->     else
->         return false;
+>     // 如果a没有迭代完，b迭代完了，b在a前
+>     if(*i) return true;
+>     return false;
 > }
 >
-> void LinkList::append(string &s){
->     strings *current = head;
->     strings *previous = nullptr;
+> void LinkList::append(const string &s)
+> {
+>     Node *current = head->pNext;
+>     Node *previous = nullptr;
 >     bool stop = false;
->     while(current != nullptr && not stop){
+>     while(current != nullptr && not stop)
+>     {
 >         if(compare(current->str, s))
 >             stop = true;
->         else{
+>         else
+>         {
 >             previous = current;
 >             current = current->pNext;
 >         }
 >     }
->
->     strings *temp = new strings;
->     temp->str = s;
->     if(previous == nullptr){
+>     Node *temp = new Node(s);
+>     if(previous == nullptr)
+>     {
 >         // previous没找到，即插入第一个
->         temp->pNext = head;
->         head = temp;
->     }else{
->         //在previos和current之间插入
+>         temp->pNext = head->pNext;
+>         head->pNext = temp;
+>     }else
+>     {
+>         // 在previous和current之间插入
 >         temp->pNext = current;
 >         previous->pNext = temp;
 >     }
+>     curLen++;
 > }
 >
 > void LinkList::showAll(){
->     strings *tmp = head;
+>     Node *tmp = head->pNext;
 >     while(tmp){
 >         cout << tmp->str << " --> ";
 >         tmp = tmp->pNext;
 >     }
 > }
->
->
-> int main(){
->     string a[] = {"PAB", "5C", "PABC", "CRSI", "7", "B899", "CXY", "B9"};
->     LinkList list = LinkList();
->     for(int i = 0; i < 8; i++){
->         list.append(a[i]);
->     }
->     list.showAll();
->     return 0;
-> }
 > ```
 
-### 1.3.2 有一个包括 100 个元素的数组，每个元素的值都是实数，请写出求最大元素的值及其位置的算法，讨论它所可能采取的存储结构
+### 1.3.2 有一个包括 $100$ 个元素的数组，每个元素的值都是实数，请写出求最大元素的值及其位置的算法，讨论它所可能采取的存储结构
 
-> **解答：** _[code 1-3-2.cpp](./src/1-3-2.cpp)_
+> **解答：** _[code 1-3-2.cpp](./src/exercise1_zhangming/1-3-2.cpp)_
 >
-> _注意：要求实数，且需要考虑多个最大值情况_
+> _注意：要求实数，且需要考虑多个最大值情况_  
 > 可采用顺序数组，链表和索引。顺序数组最优。
 >
 > ```cpp
-> int* solution(double *A, int N, int *ret){
+> int* solution(double *A, int N, int *ret)
+> {
 >     // ret用来记录最大值所在的位置
 >     int position = 0;               // 初始化设定数组的第一个元素
 >     int j = 1;                      // 控制最大值数组的存放
->     for(int i = 1; i < N; i++){
->         if(A[i] > A[position]){
+>     for(int i = 1; i < N; i++)
+>     {
+>         if(A[i] > A[position])
+>         {
 >             position = i;           // 更新最大值元素的位置
 >             j = 1;                  // 重置ret数组的下一个存放位置，0号位置预留给position
->         }else if(A[i] == A[position])
+>         }
+>         else if(A[i] == A[position])
 >             ret[j++] = i;           // 记录重复的最大值位置
 >     }
 >     ret[0] = position;
@@ -423,9 +435,9 @@ for(i = 1; i <= n; i++)
 >
 > - 【逻辑结构】
 >
->   &emsp;&emsp;逻辑结构由结点集合 K 和关系集合 R 来表示，以学生每周的课程为例。将每天的课程安排数据作为结点，一共引入 5 个结点，依次为“周一”, “周二”，...，“周五”。全部结点组成结点集 K。  
->   &emsp;&emsp;这些结点是复合类型，是一个结构体，包括当日的课程名称、时间、地点等。  
->   &emsp;&emsp;这些结点两两之间有一个时间关系 r，r={（“周一”，“周二”），（“周二”，“周三”），（“周三”，“周四”），（“周四”，“周五”）。此集合的 4 个元素描述了“时间先后”关系 r。此外还引入一个关系 r'={“周日”，“周一”}，r'只含有一个元素，以表示周日和下周的时间顺序。r 和 r'共同构成关系集 R。其中 r 属于线性结构。R 是一种环形关系。
+>   逻辑结构由结点集合 $K$ 和关系集合 $R$ 来表示，以学生每周的课程为例。将每天的课程安排数据作为结点，一共引入 $5$ 个结点，依次为“周一”, “周二”，...，“周五”。全部结点组成结点集 $K$。  
+>   这些结点是复合类型，是一个结构体，包括当日的课程名称、时间、地点等。  
+>   这些结点两两之间有一个时间关系 $r$，$r=${（“周一”，“周二”），（“周二”，“周三”），（“周三”，“周四”），（“周四”，“周五”）}。此集合的 $4$ 个元素描述了“时间先后”关系 $r$。此外还引入一个关系 $r'=$ {“周日”，“周一”}，$r'$只含有一个元素，以表示周日和下周的时间顺序。$r$ 和 $r'$共同构成关系集 $R$。其中 $r$ 属于线性结构。$R$ 是一种环形关系。
 >
 >   |          | 周一 | 周二 | 周三 | 周四 | 周五 | 周六 | 周日 |
 >   | -------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -438,7 +450,7 @@ for(i = 1; i <= n; i++)
 >
 >   - 顺序表
 >
->     当课程表课时较多时，可用二维数组，course[4][5]，一天四节课，共五天。course[0][0]代表周一早上第一节课。  
+>     当课程表课时较多时，可用二维数组，`course[4][5]`，一天四节课，共五天。`course[0][0]`代表周一早上第一节课。  
 >     优缺点：逻辑清晰，查阅修改方便。但需要占据整块空间，课时较少时造成浪费。
 >
 >   - 索引
@@ -472,24 +484,22 @@ for(i = 1; i <= n; i++)
 
 ## 1.4《学习指导》增补习题
 
-### 1.4.1 [教材习题 1.1.1](#111-设计一个算法自大到小依次输出顺序读入的三个整数-xyz-的值)
-
 ### 1.4.2 已知斐波那契序列的定义如下，试编写求 $k$ 阶斐波那契序列第 $m$ 项值的函数算法，$k、m$ 均作为该函数的参数
 
 $$
 \begin{aligned}
-&f_0 = 0, f_1 = 0,...,f_{n-2}=0, f{n-1} = 1;  \\
+&f_0 = 0, f_1 = 0,...,f_{n-2}=0, f_{n-1} = 1;  \\
 &f_n = f_{n-1} + f_{n-2}+...+f_{n-k}, n = k,k+1,...
 \end{aligned}
 $$
 
-> **解答：** _[code 1-4-2.cpp](./src/1-4-2.cpp)_
+> **解答：** _[code 1-4-2.cpp](./src/exercise1_zhangming/1-4-2.cpp)_
 >
 > 观察可知，第 $k$ 项即$f_{k-1}$项为 $1$，前 $k-1$ 项均为 $0$。第 $k$ 项之后每一项均为前 $k$ 项之和。如：
 >
 > $$
-> 当k为2时：0,1,1,3,3,5,8\\
-> 当k为3时： 0,0,1,1,3,4,7
+> 当k=2时：0,1,1,3,3,5,8\\
+> 当k=3时： 0,0,1,1,3,4,7
 > $$
 >
 > 所以当$m<=k-1$时，第 $m$ 项为 $0$。
@@ -499,21 +509,24 @@ $$
 > ```cpp
 > #include <iostream>
 >
-> #define MAX 1000
+> const int MAX = 1000;
 >
 > using namespace std;
 >
 > // 数组法
-> int Fibonacci_arr(int k, int m){
+> int Fibonacci_arr(int k, int m)
+> {
 >     int f;
 >     int arr[MAX];
 >     if(m <= k-1)
 >         f = 0;
->     else{
+>     else
+>     {
 >         for(int i = 0; i < k-1; i++)
 >             arr[i] = 0;                 // 前K-1项均为零
 >         arr[k-1] = 1;
->         for(int i = k; i < m; i++){
+>         for(int i = k; i < m; i++)
+>         {
 >             int sum = 0;
 >             for(int j = 1; j <= k; j++)
 >                 sum += arr[i-j];
@@ -537,10 +550,11 @@ $$
 > $$
 >
 > 两式相减得:
-> $f_n = 2f_{n-1} - f_{n-k-1}$
+> $f_n = 2f_{n-1} - f_{n-k-1} \quad (n≥k+1)$
 >
 > ```cpp
-> int Fibonacci_rec(int k, int m){
+> int Fibonacci_rec(int k, int m)
+> {
 >     if(m <= k-1)
 >         return 0;
 >     else if((m == k) || (m == k+1))     // 第k项和k+1均为1
@@ -550,29 +564,28 @@ $$
 > }
 > ```
 
-### 1.4.3 设计一个算法，计算$i!*2^i$的值并存入数组 $a[0..arrsize-1]$的第$i-1$个分量中$(i=1.3....,n)$。假设计算机允许的整数最大值为 maxint，则当$n>arrsize$或对某个$k(1\leq k\leq n)$，当$k!*2^i>maxint$时，按出错处理
+### 1.4.3 设计一个算法，计算$i!*2^i$的值并存入数组 $a[0..arrsize-1]$的第$i-1$个分量中$(i=1.3....,n)$。假设计算机允许的整数最大值为 $maxint$，则当$n>arrsize$或对某个$k(1\leq k\leq n)$，当$k!*2^i>maxint$时，按出错处理
 
-> **解答：** _[code 1-4-3.cpp](./src/1-4-3.cpp)_
+> **解答：** _[code 1-4-3.cpp](./src/exercise1_zhangming/1-4-3.cpp)_
 >
 > ```cpp
 > #include <iostream>
 > #include <climits>
 >
-> #define arrsize 300
-> #define maxint INT_MAX
+> const int arrsize = 300;
+> const int maxint = INT_MAX;
 >
 >
-> bool Solution(int i, int a[]){
+> bool Solution(int i, int a[])
+> {
 >     if(i < 1 || (i > arrsize))
 >         return false;
->     for(int j = 1; j <= i; j++){
->         if(j == 1)
->             a[j-1] = 2;
->         else{
->             if(a[j-2]*2*j > maxint)
->                 return false;
->             a[j-1] = a[j-2] * 2 * j;
->         }
+>     a[0] = 2;
+>     for(int j = 2; j <= i; j++)
+>     {
+>         if(a[j-2]*2*j > maxint)
+>             return false;
+>         a[j-1] = a[j-2] * 2 * j;
 >     }
 >     return true;
 > }
@@ -580,19 +593,23 @@ $$
 
 ### 1.4.4 设计一个算法，计算多项式$p_n(x) = \sum_{i=0}^{n}a_ix^i$的值
 
-> **解答：** _[code 1-4-4.cpp](./src/1-4-4.cpp)_
+> **解答：** _[code 1-4-4.cpp](./src/exercise1_zhangming/1-4-4.cpp)_
+>
+> 多项式可以看作：$a_0+(a_1+(a_2+(a_3+...(a_{n-1}+a_nx)x)x)x)x$
 >
 > ```cpp
 > #include <cmath>
 >
-> double Solution1(double a[], int x, int n){
+> double Solution1(double a[], int x, int n)
+> {
 >     double tmp = a[0];
 >     for(int i = 1; i <= n; i++)
 >         tmp += a[i] * pow(x,i);
 >     return tmp;
 > }
 >
-> int Solution2(double a[], int x, int n){
+> int Solution2(double a[], int x, int n)
+> {
 >     double tmp = a[n];
 >     for(int i = n; i > 0; i--)
 >         tmp = a[i-1] + x * tmp;
@@ -611,12 +628,13 @@ $$
 > 可采用链表形式存储，因该题需要统计高校的成绩，可再建立一个高校索引表
 >
 > ```cpp
-> typedef enum {a, b} schoolname;
-> typedef enum {female, male} sex;
-> typedef enum {x, y, z} event;
+> enum schoolname {a, b};
+> enum sex {female, male};
+> enum event {x, y, z};
 >
 >
-> class grade{
+> class grade
+> {
 >     public:
 >         schoolname school;          // 学校
 >         sex sex;                    // 性别
@@ -627,7 +645,8 @@ $$
 > };
 >
 >
-> class sum{
+> class sum
+> {
 >     private:
 >         schoolname school;          // 校名
 >         int malesum;                // 男总分
@@ -641,9 +660,7 @@ $$
 > };
 > ```
 
-### 1.4.6 [教材习题 1.1.6](#116-设-n-是偶数计算运行下列程序段后-m-的值并给出该程序段的时间复杂度)
-
-### 1.4.7 下列算法对一个 n 位二进制数加 1，假如无溢出，该算法的最坏时间复杂度是什么？请分析它的平均时间复杂度
+### 1.4.7 下列算法对一个 $n$ 位二进制数加 $1$，假如无溢出，该算法的最坏时间复杂度是什么？请分析它的平均时间复杂度
 
 ```c
 void Inc(A[n]){
@@ -659,16 +676,14 @@ void Inc(A[n]){
 
 > **解答：**
 >
-> &emsp;&emsp;最好时间复杂度是$O(1)$，最坏时间复杂度是$O(n)$。  
-> &emsp;&emsp;假如无溢出，那么最坏情况是除了最高位为 $0$ 其他位均为 $1$，即循环执行 $n-1$ 次，每次循环两次赋值，循环中一共 $2(n-1)$次赋值操作，循环外两次赋值，一共是 $2n$ 次。最好情况则是最低位为 $0$，不进入循坏，仅两次赋值操作。  
-> &emsp;&emsp;所以平均时间复杂度是 $n+1$，即$O(n)$
-
-### 1.4.8 [教材习题 1.1.8](#118-给出下面两个算法的时间复杂度)
+> 最好时间复杂度是$O(1)$，最坏时间复杂度是$O(n)$。  
+> 假如无溢出，那么最坏情况是除了最高位为 $0$ 其他位均为 $1$，即循环执行 $n-1$ 次，每次循环两次赋值，循环中一共 $2(n-1)$次赋值操作，循环外两次赋值，一共是 $2n$ 次。最好情况则是最低位为 $0$，不进入循坏，仅两次赋值操作。  
+> 所以平均时间复杂度是 $n+1$，即$O(n)$
 
 ### 1.4.9 调用 C 语言函数$f(n)$，回答下列问题
 
-**&nbsp;（1）试指出$f(n)$值的大小，并写出$f(n)$值的推导过程。**  
-**&nbsp;（2）假定 $n=5$，试指出$f(5)$值得大小和执行$f(5)$时输出结果。**
+**（1）试指出$f(n)$值的大小，并写出$f(n)$值的推导过程。**  
+**（2）假定 $n=5$，试指出$f(5)$值得大小和执行$f(5)$时输出结果。**
 
 ```c
 int f(int n){
@@ -685,30 +700,25 @@ int f(int n){
 
 > **解答：**
 >
-> - （1）当 $i=1$ 时，第二重循环执行 $n$ 次，第三重循环执行$n+(n-1)+...+1$ 次  
->   当 $i=2$ 时，第二重循环执行 $n-1$ 次，第三重循环执行$n+(n-1)+...+2$ 次  
->   当 $i=n-1$ 时，第二重循环执行 $2$ 次，第三重循环执行$n+(n-1)$次  
+> - （1）当 $i=1$ 时，第二重循环执行 $n$ 次，第三重循环执行$(n-1)+...+0$ 次  
+>   当 $i=2$ 时，第二重循环执行 $n-1$ 次，第三重循环执行$(n-1)+...+1$ 次  
+>   当 $i=n-1$ 时，第二重循环执行 $2$ 次，第三重循环执行$(n-1)+(n-2)$次  
 >   所以有：
 >   $$
 >   \begin{aligned}
->   f(n)&=(1+...+n)+(2+...+n)+...+((n-1)+n)  \\
->   &=1^2+2^2+...+(n-1)^{n-1}+n^2  \\
->   &=1×0+2×1.4.2+...+(n-1)(n-2)+n(n-1)-(n-1)  \\
->   &=\frac{n(n+1)(2n+1)}{6}
+>   f(n)&=(0+...+n-1)+(1+...+n-1)+...+((n-2)+(n-1))  \\
+>       &=1×2+2×3+3×4+...+(n-2)×(n-1)+(n-1)×n-(n-1)\\
+>       &=\sum_{i=1}^{n-1}n(n+1)-(n-1)\\
+>       &=\frac{t(t+1)(t+2)}{3}-(n-1)\quad(t=n-1)\\
+>       &=\frac{(n-1)n(n+1)}{3}-(n-1)\\
 >   \end{aligned}
 >   $$
-> - （2）当 $n=5$ 时，$f(n)=\frac{5(5+1)(2×5+1)}{6}=55$与程序运行结果一致
-
-### 1.4.10 [教材习题 1.1.6](#116-设-n-是偶数计算运行下列程序段后-m-的值并给出该程序段的时间复杂度)
-
-### 1.4.11 [教材习题 1.1.7](#117-有下列运行时间函数-分别写出相应的大math-xmlnshttpwwww3org1998mathmathmlsemanticsmrowmiomimrowannotation-encodingapplicationx-texoannotationsemanticsmatho表示的运算时间)
-
-### 1.4.12 [教材习题 1.1.8](#118-给出下面两个算法的时间复杂度)
+> 这里是因为：
+>   $$
+>   \sum_{i=1}^nn(n+1)=\sum_{i=1}^n(n^2+n)=\frac{n(n+1)(2n+1)}{6}+\frac{n(n+1)}{2}
+>   $$
+> - （2）当 $n=5$ 时，$f(n)=\frac{4×5×6}{3}-4=36$与程序运行结果一致
 
 ## 1.5《学习指导》上机题
 
-### 1.5.1 [教材上机题 1.2.1](#121-设-mn-均为自然数m-可表示为一些不超过-n-的自然数之和编写函数-fmn计算这种表示方式的数目例如-f535有五种表示方式32311221211111111)
-
-### 1.5.2 [教材上机题 1.2.2](#122试用-c的类声明定义复数的抽象数据类型要求)
-
-### 1.5.3 编写算法解决 Josephus 问题：设 n 个人围坐在一个圆桌周围，现在从第 s 个人开始报数，数到第 m 个人，让他出局；然后从出局的下一个人重新开始报数，数到第 m 个人，再让他出局......如此反复直到所有人全部出局位置。对于任意给定的 n、s、和 m，求出这 n 个人的出局序列
+### 1.5.3 编写算法解决 $Josephus$ 问题：设 $n$ 个人围坐在一个圆桌周围，现在从第 $s$ 个人开始报数，数到第 $m$ 个人，让他出局；然后从出局的下一个人重新开始报数，数到第 $m$ 个人，再让他出局......如此反复直到所有人全部出局位置。对于任意给定的 $n,s,m$，求出这 $n$ 个人的出局序列

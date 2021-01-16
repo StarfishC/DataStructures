@@ -6,12 +6,13 @@
 
 #include <iostream>
 
-#define MAX 1000
+const int MAX = 1000;
 
 using namespace std;
 
 // 数组法
-int Fibonacci_arr(int k, int m){
+int Fibonacci_arr(int k, int m)
+{
     int f;
     int arr[MAX];
     if(m <= k-1)
@@ -20,7 +21,8 @@ int Fibonacci_arr(int k, int m){
         for(int i = 0; i < k-1; i++)
             arr[i] = 0;                 // 前K-1项均为零
         arr[k-1] = 1;
-        for(int i = k; i < m; i++){
+        for(int i = k; i < m; i++)
+        {
             int sum = 0;
             for(int j = 1; j <= k; j++)
                 sum += arr[i-j];
@@ -34,7 +36,8 @@ int Fibonacci_arr(int k, int m){
 }
 
 // 递归
-int Fibonacci_rec(int k, int m){
+int Fibonacci_rec(int k, int m)
+{
     if(m <= k-1)
         return 0;
     else if((m == k) || (m == k+1))     // 第k项和k+1均为1
@@ -45,7 +48,8 @@ int Fibonacci_rec(int k, int m){
 
 
 
-int main(){
+int main()
+{
     int f = Fibonacci_arr(2, 8);
     cout << f << endl;
 

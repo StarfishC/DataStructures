@@ -1,4 +1,5 @@
-# DataStruct-zhangming
-张铭-数据结构与算法习题
+# DataStruct
 
-为什么数学公式显示有问题?
+❗ _文档公式显示问题请安装插件 [MaxthJax Plugin for Github](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima)_
+
+## [第一章 概述](Chapter1-Overview/README.md)
