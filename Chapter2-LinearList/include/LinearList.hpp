@@ -4,8 +4,8 @@
 // ===================
 
 
-#ifndef _LINEARLIST_H_
-#define _LINEARLIST_H_
+#ifndef __LINEARLIST_H_
+#define __LINEARLIST_H_
 
 // 顺序表
 template <typename T>
