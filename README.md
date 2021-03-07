@@ -24,4 +24,10 @@
 - [x] [:orange_book: 第三章 习题 1 - exercise1_zhangming](./Chapter3-StackAndQueue/exercise1_zhangming.md)
 - [x] [:blue_book: 第三章 习题 2 - exercise2_wangdao](./Chapter3-StackAndQueue/exercise2_wangdao.md)
 - [x] [:green_book: 第三章 习题 3 - exercise3_zhangming](./Chapter3-StackAndQueue/exercise3_zhangming.md)  
-`习题3是张铭《学习指导》的第二章-线性表、栈和队列`
+      `习题3是张铭《学习指导》的第二章-线性表、栈和队列`
+
+## 第四章 字符串
+
+- [x] [:page_facing_up: 第四章 笔记 - Note](./Chapter4-String/Note.md)
+- [x] [:orange_book: 第四章 习题 1 - exercise1_zhangming](./Chapter4-String/exercise1_zhangming.md)
+- [x] [:blue_book: 第四章 习题 2 - exercise2_wangdao](./Chapter4-String/exercise2_wangdao.md)
