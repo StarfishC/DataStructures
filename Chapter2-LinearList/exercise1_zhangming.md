@@ -97,7 +97,7 @@
 > **解答：** _[code 2-1-3.cpp](./src/exercise1_zhangming/2-1-3.cpp)_
 >
 > ```cpp
-> #include "../../include/LinearList.hpp"
+> #include "LinearList.cpp"
 >
 >
 > template <typename T>
@@ -145,7 +145,7 @@
 > - （2）头插法
 >
 > ```cpp
-> #include "../../include/LinearList.hpp"
+> #include "LinearList.cpp"
 >
 >
 > template <typename T>
@@ -269,7 +269,7 @@
 >
 > ```cpp
 > #include <iostream>
-> #include "../../include/LinearList.hpp"
+> #include "LinearList.cpp"
 >
 >
 > // 创建一个循环链表类
@@ -369,7 +369,7 @@
 >
 > ```cpp
 > #include <iostream>
-> #include "../../include/LinearList.hpp"
+> #include "LinearList.cpp"
 >
 >
 > // 当k比较大时，默认i后面元素全部删除，若要求第i+k元素必须存在，则需要判断是否越界
@@ -404,7 +404,7 @@
 > **解答：** _[code 2.1-7.cpp](./src/exercise1_zhangming/2-1-7.cpp)_
 >
 > ```cpp
-> #include "../../include/LinearList.hpp"
+> #include "LinearList.cpp"
 >
 >
 > template <typename T>
@@ -438,7 +438,7 @@
 > **解答：** _[code 2.1-8.cpp](./src/exercise1_zhangming/2-1-8.cpp)_
 >
 > ```cpp
-> #include "../../include/LinearList.hpp"
+> #include "LinearList.cpp"
 >
 >
 > void Solution(ArrList<int>* A, ArrList<int>* B, ArrList<int>* C)
@@ -470,7 +470,7 @@
 > **解答：** [code 2-1-9.cpp](./src/exercise1_zhangming/2-1-9.cpp)
 >
 > ```cpp
-> #include "../../include/LinearList.hpp"
+> #include "LinearList.cpp"
 >
 >
 > void Solution(LinkList<int>* A, LinkList<int>* B, LinkList<int>* C){

@@ -5,7 +5,7 @@
 // ===================
 
 
-#include "../../include/LinearList.hpp"
+#include "LinearList.cpp"
 
 
 template <typename T>

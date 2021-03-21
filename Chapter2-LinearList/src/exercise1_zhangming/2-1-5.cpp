@@ -6,7 +6,7 @@
 
 
 #include <iostream>
-#include "../../include/LinearList.hpp"
+#include "LinearList.cpp"
 
 
 // 创建一个循环链表类

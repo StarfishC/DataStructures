@@ -5,7 +5,7 @@
 // ===================
 
 
-#include "../../include/LinearList.hpp"
+#include "LinearList.cpp"
 
 
 void Solution(LinkList<int>* A, LinkList<int>* B, LinkList<int>* C){

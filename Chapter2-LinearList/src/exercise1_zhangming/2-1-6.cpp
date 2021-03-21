@@ -6,7 +6,7 @@
 
 
 #include <iostream>
-#include "../../include/LinearList.hpp"
+#include "LinearList.cpp"
 
 
 // 当k比较大时，默认i后面元素全部删除，若要求第i+k元素必须存在，则需要判断是否越界
