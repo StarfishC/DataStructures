@@ -341,7 +341,177 @@
 **&emsp;&emsp;C. $4$
 &emsp;&emsp;&emsp;&emsp;D. $5$
 
-<div align="center"><img src="./images/exercise2_wangdao/47.png" alt="47" height=, width= /></div>
+<div align="center"><img src="./images/exercise2_wangdao/3-1-47.png" alt="3-1-47" height=, width= /></div>
+
+### 48. 栈的应用不包括（）
+
+**&emsp;&emsp;A. 递归
+&emsp;&emsp;&emsp;&emsp;B. 进制转换
+**&emsp;&emsp;C. 迷宫求解
+&emsp;&emsp;&emsp;&emsp;D. 缓冲区
+
+### 49. 表达式$a*(b+c)-d$的后缀表达式是（）
+
+**&emsp;&emsp;A. $abcd*+-$
+&emsp;&emsp;&emsp;&emsp;B. $abc+*d-$
+**&emsp;&emsp;C. $abc*+d-$
+&emsp;&emsp;&emsp;&emsp;D. $-+*abcd$
+
+### 50. 下面（）用到了队列
+
+**&emsp;&emsp;A. 括号匹配
+&emsp;&emsp;&emsp;&emsp;B. 迷宫求解
+**&emsp;&emsp;C. 页面替换算法
+&emsp;&emsp;&emsp;&emsp;D. 递归
+
+### 51.【2009 统考真题】为解决计算机主机和打印机之间速度不配的问题，通常设置一个打印数据缓冲区，主机将要输出的数据一次写入该缓冲区，而打印机则依次从该缓冲区取出数据。该缓冲区的逻辑结构应该是（）
+
+**&emsp;&emsp;A. 栈
+&emsp;&emsp;&emsp;&emsp;B. 队列
+**&emsp;&emsp;C. 树
+&emsp;&emsp;&emsp;&emsp;D. 图
+
+### 52. 利用栈求表达式的值时，设立运算数栈$OPEN$，假设$OPEN$只有两个存储单元，则在下列表达式中，不会发生溢出的是（）
+
+**&emsp;&emsp;A. $A-B*(C-D)$
+&emsp;&emsp;&emsp;&emsp;B. $(A-B)*C-D$
+**&emsp;&emsp;C. $(A-B*C)-D$
+&emsp;&emsp;&emsp;&emsp;D. $(A-B)*(C-D)$
+
+### 53. 执行完下列语句后，$i$的值为（）
+
+```cpp
+int f(int x)
+{
+    return ((x > 0) ? x*(f-1) : 2);
+}
+```
+
+**&emsp;&emsp;A. $2$
+&emsp;&emsp;&emsp;&emsp;B. $4$
+**&emsp;&emsp;C. $8$
+&emsp;&emsp;&emsp;&emsp;D. 无限递归
+
+### 54. 对于一个问题的递归算法求解和其相对应的非递归算法求解，（）
+
+**&emsp;&emsp;A. 递归算法通常效率高一些
+&emsp;&emsp;&emsp;&emsp;B. 非递归算法通常效率高一些
+**&emsp;&emsp;C. 两者相同
+&emsp;&emsp;&emsp;&emsp;D. 无法比较
+
+### 55. 执行函数时，其局部变量一般采用（）进行存储
+
+**&emsp;&emsp;A. 树形结构
+&emsp;&emsp;&emsp;&emsp;B. 静态链表
+**&emsp;&emsp;C. 栈结构
+&emsp;&emsp;&emsp;&emsp;D. 队列结构
+
+### 56. 执行（）操作时，需要使用队列作为辅助存储空间
+
+**&emsp;&emsp;A. 查找散列（哈希）表
+&emsp;&emsp;&emsp;&emsp;B. 广度优先搜索图
+**&emsp;&emsp;C. 前序遍历二叉树
+&emsp;&emsp;&emsp;&emsp;D. 深度优先搜索图
+
+### 57. 下列说法中，正确的是（）
+
+**&emsp;&emsp;A. 消除递归不一定需要使用栈
+&emsp;&emsp;&emsp;&emsp;B. 对同一输入序列进行两组不同的合法入栈和出栈组合操作，所得的输出序列也一定相同
+**&emsp;&emsp;C. 通常使用队列来处理函数或过程调用
+&emsp;&emsp;&emsp;&emsp;D. 队列和栈都是运算受限的线性表，只允许在表的两端进行运算
+
+### 58.【2012 统考真题】已知操作符包括$+、-、*、/$、（和）。将中缀表达式$a+b-a*((c+d)/e-f)+g$转换为等价的后缀表达式$ab+acd+e/f-*-g+$时，用栈来存放暂时还不能确定运算次序的操作符。若栈初始时为空，则转换过程中同事保存在栈中的操作符的最大个数是（）
+
+**&emsp;&emsp;A. $5$
+&emsp;&emsp;&emsp;&emsp;B. $7$
+**&emsp;&emsp;C. $8$
+&emsp;&emsp;&emsp;&emsp;D. $11$
+
+### 59.【2014 统考真题】假设栈初始为空，将中缀表达式$a/b+(c*d-e*f)/g$转换为等价的后缀表达式的过程中，当扫描到$f$时，栈中的元素依次是（）
+
+**&emsp;&emsp;A. $+(*-$
+&emsp;&emsp;&emsp;&emsp;B. $+(-*$
+**&emsp;&emsp;C. $/+(*-*$
+&emsp;&emsp;&emsp;&emsp;D. $/+-*$
+
+### 60.【2015 统考真题】已知程序如下，程序运行时使用栈来保存调用过程的信息，自栈底到栈顶保存的信息依次对应的是（）
+
+```cpp
+int S(int n)
+{ return (n <= 0) ? 0 : S(n-1) + n; }
+void main()
+{
+    cout << S(1);
+}
+```
+
+**&emsp;&emsp;A. `main()->S(1)->S(0)`
+&emsp;&emsp;&emsp;&emsp;B. `S(0)->S(1)->main()`
+**&emsp;&emsp;C. `main()->S(0)->S(1)`
+&emsp;&emsp;&emsp;&emsp;D. `S(1)->S(0)->main()`
+
+### 61. 对特殊矩阵采用压缩存储的主要目的是（）
+
+**&emsp;&emsp;A. 表达式变得简单
+&emsp;&emsp;&emsp;&emsp;B. 对矩阵元素的存取变得简单
+**&emsp;&emsp;C. 去掉矩阵中的多余元素
+&emsp;&emsp;&emsp;&emsp;D. 减少不必要的存储空间
+
+### 62. 对$n$阶矩阵压缩存储时，需要表厂为（）的顺序表
+
+**&emsp;&emsp;A. $n/2$
+&emsp;&emsp;&emsp;&emsp;B. $n×n/2$
+**&emsp;&emsp;C. $n(n+1)/2$
+&emsp;&emsp;&emsp;&emsp;D. $n(n-1)/2$
+
+### 63. 在一个二维数组$A$中，假设每个数组元素的长度为$3$个存储单元，行下标$i$为$0~8$，列下标$j$为$0~9$，从首地址$SA$开始连续存放。这种情况下，元素$A[8][5]$的起始地址为（）
+
+**&emsp;&emsp;A. $SA+141$
+&emsp;&emsp;&emsp;&emsp;B. $SA+144$
+**&emsp;&emsp;C. $SA+222$
+&emsp;&emsp;&emsp;&emsp;D. $SA+255$
+
+### 64. 将三对角矩阵$A[1...100][1...100]$按行优先存入一维数组$B[1...298]$中，$A$中元素$A[66][65]$在数组$B$中的位置$k$为（）
+
+**&emsp;&emsp;A. $198$
+&emsp;&emsp;&emsp;&emsp;B. $195$
+**&emsp;&emsp;C. $197$
+&emsp;&emsp;&emsp;&emsp;D. $196$
+
+### 65.【2016 统考真题】有一个$100$阶的三对角矩阵$M$，其元素$m_{i,j}(1≤i,j≤100)$按行优先一次压缩存入下标从$0$开始的一维数组$N$中。元素$m_{30,30}$在$N$中的下标是（）
+
+**&emsp;&emsp;A. $86$
+&emsp;&emsp;&emsp;&emsp;B. $87$
+**&emsp;&emsp;C. $88$
+&emsp;&emsp;&emsp;&emsp;D. $89$
+
+### 66. 若将$n$阶上三角矩阵$A$按列优先级压缩存放在一维数组$B[1...n(n+1)/2+1]$中，则存放到$B[k]$中的非零元素$a_{i,j}(1≤i,j≤N)$的下标$i,j$与$k$的对应关系是（）
+
+**&emsp;&emsp;A. $i(i+1)/2+j$
+&emsp;&emsp;&emsp;&emsp;B. $i(i-1)/2+j-1$
+**&emsp;&emsp;C. $j(j-1)/2+i$
+&emsp;&emsp;&emsp;&emsp;D. $j(j-1)/2+i-1$
+
+### 67. 若将$n$阶下三角矩阵$A$按列优先级压缩存放在一维数组$B[1...n(n+1)/2+1]$中，则存放到$B[k]$中的非零元素$a_{i,j}(1≤i,j≤N)$的下标$i,j$与$k$的对应关系是（）
+
+**&emsp;&emsp;A. $(j-1)(2n-j+1)/2+i-j$
+&emsp;&emsp;&emsp;&emsp;B. $(j-1)(2n-j+2)/2+i-j+1$
+**&emsp;&emsp;C. $(j-1)(2n-j+2)/2+i-j$
+&emsp;&emsp;&emsp;&emsp;D. $(j-1)(2n-j+1)/2+i-j-1$
+
+### 68.【2017 统考真题】适用于压缩存储稀疏矩阵的两种存储结构是（）
+
+**&emsp;&emsp;A. 三元组和十字链表
+&emsp;&emsp;&emsp;&emsp;B. 三元组和邻接矩阵
+**&emsp;&emsp;C. 十字链表和二叉链表
+&emsp;&emsp;&emsp;&emsp;D.邻接矩阵和十字链表
+
+### 69.【2018 统考真题】设有一个$12×12$的对称矩阵$M$，将其上三角部分的元素$m_{i,j}(1≤i≤j≤12)$按行优先存入`C`语言的一维数组$N$中，元素$m_{6,6}$在$N$的下标是（）
+
+**&emsp;&emsp;A. $50$
+&emsp;&emsp;&emsp;&emsp;B. $51$
+**&emsp;&emsp;C. $55$
+&emsp;&emsp;&emsp;&emsp;D. $66$
 
 ## 综合应用题
 
@@ -383,3 +553,21 @@
 **（2）画出队列的初始状态，并给出判断队空和队满的条件**  
 **（3）画出第一个元素入队后的队列状态**  
 **（4）给出入队操作和出队操作的基本过程**
+
+### 10. 假设一个算术表达之中包含圆括号、方括号和花括号$3$种类型的括号，编写一个算法来判断表达式中的括号是否匹配，以字符$"\0"$作为算术表达式的结束符
+
+### 11. 按下图所示铁道进行车厢调度（注意，两侧铁道均为单向行驶道，火车调度站有一个用于调度的“栈道”），火车调度站的入口处有$n$节硬座和软座车厢（分别用$H$和$S$表示），等待调度，试编写算法，输出对着$n$节车厢进行调度的操作（即入栈或出栈操作）序列，以使所有的软座车厢都被调整到硬座车厢之前
+
+<div align="center"><img src="./images/exercise2_wangdao/3-2-11.png" alt="3-2-11" height=, width= /></div>
+
+### 12. 利用一个栈实现以下递归函数的非递归计算
+
+$$
+P_n(x)=\left\{\begin{matrix}
+1, & n=0\\  
+2x, & n=1\\  
+2xP_{n-1}(x)-2(n-1)P_{n-2}(x) & n>1  
+\end{matrix}\right.
+$$
+
+### 13. 某汽车轮渡口，果酱渡船每次能载10辆车过江。过江车辆分别为客车类和火车类，上渡船有如下规定：同类车先到先上船；客车先于货车上船，且每上$4$辆客车，才允许放上$1$辆货车；若等待客车不足$4$辆，则以货车代替；若无货车等待，允许客车都上船。试设计一个算法模拟渡口管理
