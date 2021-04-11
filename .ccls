@@ -1,0 +1,7 @@
+clang
+%c -std=c11
+%cpp -std=c++11
+
+-I./Chapter2-LinearList/include/
+-I./Chapter3-StackAndQueue/include/
+-I./Chapter5-TreeAndBinaryTree/include/

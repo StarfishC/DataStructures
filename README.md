@@ -31,3 +31,13 @@
 - [x] [:page_facing_up: 第四章 笔记 - Note](./Chapter4-String/Note.md)
 - [x] [:orange_book: 第四章 习题 1 - exercise1_zhangming](./Chapter4-String/exercise1_zhangming.md)
 - [x] [:blue_book: 第四章 习题 2 - exercise2_wangdao](./Chapter4-String/exercise2_wangdao.md)
+
+## 第五章 树和二叉树
+
+
+- [x] [:page_facing_up: 第五章 笔记 - Note](./Chapter5-TreeAndBinaryTree/Note.md)
+- [x] [:orange_book: 第五章 习题 1 - exercise1_zhangming](./Chapter4-String/exercise1_zhangming.md)  
+    `习题1是在张铭第五章《二叉树》习题`
+- [ ] [:blue_book: 第五章 习题 2 - exercise2_wangdao]()
+- [x] [:orange_book: 第五章 习题 3 - exercise3_zhangming](./Chapter4-String/exercise1_zhangming.md)  
+    `习题3是在张铭第六章《树》习题`
