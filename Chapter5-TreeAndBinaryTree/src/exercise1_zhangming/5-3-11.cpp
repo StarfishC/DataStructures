@@ -1,10 +1,11 @@
-// File:    4-3-11.cpp
+// File:    5-3-11.cpp
 // Author:  csh
 // Date:    2020/12/05
 // ===================
 
 
-ThreadBinaryTreeNode* FindPreInsorder(ThreadBinaryTreeNode *pointer){
+ThreadBinaryTreeNode* FindPreInsorder(ThreadBinaryTreeNode *pointer)
+{
     ThreadBinaryTreeNode *temppointer = nullptr;
     // 指定结点有右孩子
     if(pointer->rTag == 0)

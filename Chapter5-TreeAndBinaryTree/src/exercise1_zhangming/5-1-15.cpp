@@ -1,4 +1,4 @@
-// File:    4-1-15.cpp
+// File:    5-1-15.cpp
 // Author:  csh
 // Date:    2020/09/12
 // ===================
@@ -8,7 +8,8 @@
 
 // 方法一：递归算法
 template <typename T>
-int smallcount(BinaryTreeNode<T> *root, T k){
+int smallcount(BinaryTreeNode<T> *root, T k)
+{
     if(root == NULL)
         return 0;
     else if(k >= root->value())
@@ -19,16 +20,21 @@ int smallcount(BinaryTreeNode<T> *root, T k){
 
 // 方法二：非递归
 template <typename T>
-int smallcountWithRecursion(BinaryTreeNode<T> *root, T k){
+int smallcountWithRecursion(BinaryTreeNode<T> *root, T k)
+{
     int n = 0;
     using std::stack;
     stack<BinaryTreeNode<T>*> aStack;
     BinaryTreeNode<T> *pointer = root;
-    while(!aStack.empty() || pointer){
-        if(pointer){
+    while(!aStack.empty() || pointer)
+    {
+        if(pointer)
+        {
             aStack.push(pointer);
             pointer = pointer->leftChild();
-        }else{
+        }
+        else
+        {
             pointer = aStack.top();
             if(pointer->value() <= k)
                 n++;

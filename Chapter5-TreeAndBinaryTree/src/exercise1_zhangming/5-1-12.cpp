@@ -1,21 +1,24 @@
-// File:    4-1-12.cpp
+// File:    5-1-12.cpp
 // Author:  csh
 // Date:    2020/09/12
 // ===================
 
 
 template <typename T>
-void BinarySearchTree<T>::DeleteNodeEx(BinaryTreeNode<T> *pointer){
+void BinarySearchTree<T>::DeleteNodeEx(BinaryTreeNode<T> *pointer)
+{
     if(pointer == NULL)
         return;
     BinaryTreeNode<T> *temppointer;                                     // 用于保存替换结点
     BinaryTreeNode<T> *tempparent;                                      // 用于保存替换结点的父结点
     BinaryTreeNode<T> *parent = Parent(pointer);                        // 用于保存待删除结点的父结点
-    if(pointer->leftchild() == NULL){                                   // 如果待删除结点的左子树为空
+    if(pointer->leftchild() == NULL)                                    // 如果待删除结点的左子树为空
         temppointer = pointer->rightchild();                            // 替换结点赋值为其右子树的根
-    }else{
+    else
+    {
         temppointer = pointer->leftchild();
-        while(temppointer->rightchild() != NULL){                       // 寻找左子树最大结点
+        while(temppointer->rightchild() != NULL)                        // 寻找左子树最大结点
+        {
             tempparent = temppointer;
             temppointer = temppointer->rightchild();                    // 向右下降
         }
@@ -38,7 +41,8 @@ void BinarySearchTree<T>::DeleteNodeEx(BinaryTreeNode<T> *pointer){
 };
 
 template <typename T>
-void BinarySearchTree<T>::deleteNode(BinaryTreeNode<T> *root, T num){
+void BinarySearchTree<T>::deleteNode(BinaryTreeNode<T> *root, T num)
+{
     if(root == NULL)
         return;
     if(root.value < num)

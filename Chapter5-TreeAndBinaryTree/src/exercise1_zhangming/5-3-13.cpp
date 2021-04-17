@@ -5,14 +5,16 @@
 
 
 template <typename T>
-void ThreadBinaryTree<T>::InsertNode(ThreadBinaryTreeNode<T> *p, ThreadBinaryTreeNode<T> *r){
+void ThreadBinaryTree<T>::InsertNode(ThreadBinaryTreeNode<T> *p, ThreadBinaryTreeNode<T> *r)
+{
     ThreadBinaryTreeNode<T> *temppointer = nullptr;
     // 找到指定结点的中序前驱
     if(p->leftChild() == nullptr)
         temppointer = nullptr;
     else if(p->lTag == 1)                   // 左孩子为线索，前驱是左孩子
         temppointer = p->leftChild();
-    else{
+    else
+    {
         temppointer = p->leftChild();       // 左孩子是指针，前驱是左子树中按中序遍历周游最后一个点
         while(temppointer->rTag == 0)
             temppointer = temppointer->rightChild();

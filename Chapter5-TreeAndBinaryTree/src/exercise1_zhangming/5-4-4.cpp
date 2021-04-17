@@ -1,22 +1,25 @@
-// File:    4-5-4.cpp
+// File:    5-4-4.cpp
 // Author:  csh
 // Date:    2020/12/05
 // ===================
 
 
-#include "../headers/binaryTreeNode.hpp"
+#include "BinaryTreeNode.hpp"
 
 
 template <typename T>
-bool rootPath(BinaryTreeNode<T> *root, T value, T *PathRoot, int &sum){
+bool rootPath(BinaryTreeNode<T> *root, T value, T *PathRoot, int &sum)
+{
     if(root == nullptr) return false;
     if(root->value() == value) return true;
-    if(rootPath(root->leftChild(), value, PathRoot, sum)){
+    if(rootPath(root->leftChild(), value, PathRoot, sum))
+    {
         PathRoot[sum] = root->rightChild()->value;
         sum += 1;
         return true;
     }
-    if(rootPath(root->rightChild(), value, PathRoot, sum)){
+    if(rootPath(root->rightChild(), value, PathRoot, sum))
+    {
         PathRoot[sum] = root->rightChild()->value;
         sum += 1;
         return true;
@@ -25,7 +28,8 @@ bool rootPath(BinaryTreeNode<T> *root, T value, T *PathRoot, int &sum){
 }
 
 template <typename T>
-bool solution(BinaryTreeNode<T> *root, T value){
+bool solution(BinaryTreeNode<T> *root, T value)
+{
     int sum = 0;
     T PathRoot[100];
     bool ret = rootPath(root, value, PathRoot, sum);

@@ -1,17 +1,19 @@
-// File:    4-1-17.cpp
+// File:    5-1-17.cpp
 // Author:  csh
 // Date:    2020/09/13
 // ===================
 
 
-bool IsBST(BinaryTree *tree){
-    if(tree){
+bool IsBST(BinaryTree *tree)
+{
+    if(tree)
         return isBST(tree->root);
-    }else
+    else
         return false;
 }
 
-bool isBST(BinaryTreeNode *root){
+bool isBST(BinaryTreeNode *root)
+{
     if(root == NULL) return true;
     // 如果左子结点大于等于本结点的值，返回false
     if(root->leftChild() && root->value() <= root->leftChild()->value())
