@@ -6,29 +6,34 @@
 
 #include <stack>
 #include <cassert>
-#include "../headers/treeNode.hpp"
+#include "TreeNode.hpp"
 
 template <typename T>
-struct Node{
+struct Node
+{
     T info;
     int degree;
 };
 
 template <typename T>
-TreeNode<T>* Convert(Node<T> *nodes, int size){
+TreeNode<T>* Convert(Node<T> *nodes, int size)
+{
     using std::stack;
     TreeNode<T> *cur, *temp1, *temp2;
     stack<TreeNode<T>* > st;
-    for(int i = 0; i < size; i++){
+    for(int i = 0; i < size; i++)
+    {
         if(nodes[i].degree == 0)
             st.push(new TreeNode<T>(nodes[i].info));
-        else{
+        else
+        {
             assert(nodes[i].degree <= st.size());
             cur = new TreeNode<T>(nodes[i].info);
             temp2 = st.top();
             st.pop();
             // 依次弹出栈顶元素并连接成子树
-            for(int j = 1; j < nodes[i].degree; j++){
+            for(int j = 1; j < nodes[i].degree; j++)
+            {
                 temp1 = st.top();
                 st.pop();
                 temp1->setSibling(temp2);
@@ -42,7 +47,8 @@ TreeNode<T>* Convert(Node<T> *nodes, int size){
     temp2 = st.top();
     st.pop();
     // 依次弹出所有元素
-    while(!st.empty()){
+    while(!st.empty())
+    {
         cur = st.top();
         st.pop();
         cur->setSibling(temp2);

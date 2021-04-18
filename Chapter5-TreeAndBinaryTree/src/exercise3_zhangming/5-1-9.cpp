@@ -5,7 +5,8 @@
 
 
 template <typename T>
-BinaryTree<T>* ToBinaryTree(TreeNode<T> *treeRoot){
+BinaryTree<T>* ToBinaryTree(TreeNode<T> *treeRoot)
+{
     BinaryTree *Btree = new BinaryTree();       // 申请空二叉树
     if(!treeRoot) return Btree;                 // 为空则返回
     Btree->root = ChangeSubTree(treeRoot);
@@ -13,7 +14,8 @@ BinaryTree<T>* ToBinaryTree(TreeNode<T> *treeRoot){
 }
 
 template <typename T>
-BinaryTreeNode<T>* ChangeSubTree(TreeNode<T> *treeRoot){
+BinaryTreeNode<T>* ChangeSubTree(TreeNode<T> *treeRoot)
+{
     BinaryTreeNode<T> *pointer;
     if(treeRoot == NULL)
         return NULL;

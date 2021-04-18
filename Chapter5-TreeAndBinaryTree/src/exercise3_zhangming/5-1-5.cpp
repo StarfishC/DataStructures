@@ -5,11 +5,12 @@
 
 
 #include <list>
-#include "../headers/treeNode.hpp"
+#include "TreeNode.hpp"
 
 
 template <typename T>
-bool isEqual(TreeNode<T> *rt1, TreeNode<T> *rt2){
+bool isEqual(TreeNode<T> *rt1, TreeNode<T> *rt2)
+{
     if(rt1 == nullptr && rt2 == nullptr)
         return true;
     // 若根结点不同或其中一个节点为null，返回fasle
@@ -33,11 +34,13 @@ bool isEqual(TreeNode<T> *rt1, TreeNode<T> *rt2){
     if(chs1.size() != chs2.size())
         return false;
     typename list<TreeNode<T> *>::iterator it1, it2;
-    for(it1 = chs1.begin(); it1 != chs1.end(); it1++){
+    for(it1 = chs1.begin(); it1 != chs1.end(); it1++)
+    {
         for(it2 = chs2.begin(); it2 != chs2.end(); it2++)
             // 如果从rt2的子树中找到了和*it1匹配的子树*it2,
             // 那么从rt2的孩子列表中删除，避免重复判断，并终止后序比较
-            if(isEqual(*it1, *it2)){
+            if(isEqual(*it1, *it2))
+            {
                 chs2.erase(it2);
                 break;
             }
