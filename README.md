@@ -24,7 +24,7 @@
 - [x] [:orange_book: 第三章 习题 1 - exercise1_zhangming](./Chapter3-StackAndQueue/exercise1_zhangming.md)
 - [x] [:blue_book: 第三章 习题 2 - exercise2_wangdao](./Chapter3-StackAndQueue/exercise2_wangdao.md)
 - [x] [:green_book: 第三章 习题 3 - exercise3_zhangming](./Chapter3-StackAndQueue/exercise3_zhangming.md)  
-      `习题3是张铭《学习指导》的第二章-线性表、栈和队列`
+       `习题3是张铭《学习指导》的第二章-线性表、栈和队列`
 
 ## 第四章 字符串
 
@@ -36,10 +36,21 @@
 
 - [x] [:page_facing_up: 第五章 笔记 - Note](./Chapter5-TreeAndBinaryTree/Note.md)
 - [x] [:orange_book: 第五章 习题 1 - exercise1_zhangming](./Chapter4-String/exercise1_zhangming.md)  
-    `习题1是在张铭第五章《二叉树》习题`
+       `习题1是在张铭第五章《二叉树》习题`
 - [ ] [:blue_book: 第五章 习题 2 - exercise2_wangdao]()
 - [x] [:orange_book: 第五章 习题 3 - exercise3_zhangming](./Chapter4-String/exercise1_zhangming.md)  
-    `习题3是在张铭第六章《树》习题`
+       `习题3是在张铭第六章《树》习题`
+
+## 第六章 图
+
+- [ ] [:page_facing_up: 第六章 笔记 - Note](./Chapter6-Graph/Note.md)
+- [ ] [:orange_book: 第六章 习题 1 - exercise1_zhangming](./Chapter6-Graph/exercise1_zhangming.md)  
+       `习题1是张铭第七张《图》的习题`
+- [ ] [:blue_book: 第六章 习题 2 - exercise2_wangdao]()
+
+## 第七章 查找
+
+## 第八章 排序
 
 ## License
 
