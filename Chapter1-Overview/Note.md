@@ -2,8 +2,8 @@
 
 **概览：**
 
-**[:question: 数据结构的定义是什么](#定义)**  
-**[:question: 抽象数据类型是什么](#抽象数据类型-abstract-data-type)**  
+**[:question: 数据结构的定义](#定义)**  
+**[:question: 抽象数据类型](#抽象数据类型-abstract-data-type)**  
 **[:question: 算法是什么以及如何评估算法](#算法algorithm)**  
 **[:question: 用例子说明算法的重要性](#算法algorithm)**
 
