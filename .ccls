@@ -5,3 +5,5 @@ clang
 -I./Chapter2-LinearList/include/
 -I./Chapter3-StackAndQueue/include/
 -I./Chapter5-TreeAndBinaryTree/include/
+-I./Chapter6-Graph/include/
+-I./Chapter8-Sort/include/
