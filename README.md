@@ -56,7 +56,7 @@
 
 ## 第八章 排序
 
-- [ ] [:page_facing_up: 第八章 笔记 - Note](./Chapter8-Sort/Note.md)  
+- [x] [:page_facing_up: 第八章 笔记 - Note](./Chapter8-Sort/Note.md)  
 - [ ] [:orange_book: 第八章 习题 1 - exercise1_zhangming](./Chapter8-Sort/exercise1_zhangming.md)  
     `习题1是张铭"内排序"习题`
 - [ ] [:blue_book: 第八章 习题 2 - exercise2_wangdao]()
