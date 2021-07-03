@@ -531,7 +531,6 @@ void ModMerge(Record Array[], Record TempArray[], int left, int right, int middl
 }
 ```
 
-
 **例子：**
 
 - 先划分子序列，直到长度为$1$
@@ -1003,3 +1002,5 @@ void replacementSelection(T *A, int n, const char *in, const char *out)
 归并排序的安排也能影响读写次数，把初始顺串长度作为权，其实质就是**Huffman**树最优化问题
 
 ### 多路归并-选择树
+
+:exclamation: 完全不懂，待完善
