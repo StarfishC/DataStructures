@@ -1,6 +1,7 @@
 # 数据结构概览
 
-:exclamation: _文档公式显示问题请安装插件 [MaxthJax Plugin for Github](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima)_
+:exclamation: _文档公式显示问题请安装插件 [MaxthJax Plugin for Github](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima)_  
+:exclamation: _部分公式还是显示有问题，Clone使用最佳_
 
 :one: **笔记** ：主要以北大张铭教材[`《数据结构与算法》`](https://github.com/caoshenghui/DataStruct/releases/tag/v1.0)以及浙大陈越姥姥的[`数据结构`](https://www.icourse163.org/course/ZJU-93001)慕课的 PPT 为主  
 :two: **习题 1** ：是北大张铭`《数据结构与算法》`教材习题以及对应的`《数据结构与算法-学习指导与习题解析》`  
