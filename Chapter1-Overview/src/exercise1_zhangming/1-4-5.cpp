@@ -1,73 +1,92 @@
-// File:    1-4-5.cpp
-// Author:  csh
-// Date:    2020/05/01
-// ===================
-
+/******************************************************************************
+ * File:           1-4-5.cpp
+ * Author:         caoshenghui <576365750@qq.com>
+ * Github:         https://github.com/caoshenghui
+ * Description:
+ * LICENSE:        MIT
+******************************************************************************/
 
 #include <iostream>
 
 using namespace std;
 
-typedef enum {A, B} SchoolName;
-typedef enum {FEMALE, MALE} Sex;
-typedef enum {X, Y, Z} Event;
+typedef enum
+{
+    A,
+    B
+} SchoolName;
+typedef enum
+{
+    FEMALE,
+    MALE
+} Sex;
+typedef enum
+{
+    X,
+    Y,
+    Z
+} Event;
 
-
-class Grade{
-    public:
-        SchoolName school;          // 学校
-        Sex sex;                    // 性别
-        Event e;                    // 项目名称
-        int score;                  // 得分(成绩)
-        Grade(){};
-        Grade(SchoolName sn, Sex s, Event ev, int sc)
-            : school{sn}, sex{s}, e{ev}, score{sc} {}
+class Grade
+{
+public:
+    SchoolName school; // 学校
+    Sex sex; // 性别
+    Event e; // 项目名称
+    int score; // 得分(成绩)
+    Grade(){};
+    Grade(SchoolName sn, Sex s, Event ev, int sc) :
+        school{ sn }, sex{ s }, e{ ev }, score{ sc } {}
 };
 
-
-class Sum{
-    private:
-        SchoolName school;          // 校名
-        int malesum;                // 男总分
-        int femalesum;              // 女总分
-        int totalsum;               // 团体总分
-    public:
-        Sum();
-        Sum(SchoolName sn);
-        void getScore(Grade gra[], int n);   // 获取分数
-        void showScore();           // 输出总分
+class Sum
+{
+private:
+    SchoolName school; // 校名
+    int malesum; // 男总分
+    int femalesum; // 女总分
+    int totalsum; // 团体总分
+public:
+    Sum();
+    Sum(SchoolName sn);
+    void getScore(Grade gra[], int n); // 获取分数
+    void showScore(); // 输出总分
 };
 
-Sum::Sum(SchoolName sn){
+Sum::Sum(SchoolName sn)
+{
     femalesum = 0;
     malesum = 0;
     totalsum = 0;
     school = sn;
 }
 
-void Sum::getScore(Grade gra[], int n){
-    for(int i = 0; i < n; i++){
+void Sum::getScore(Grade gra[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
         Grade temp = gra[i];
-        if(temp.school == this->school){
-            if(temp.sex == FEMALE)
+        if (temp.school == this->school)
+        {
+            if (temp.sex == FEMALE)
                 this->femalesum += temp.score;
             else
                 this->malesum += temp.score;
             this->totalsum += temp.score;
         }
-    } 
+    }
 }
 
-void Sum::showScore(){
+void Sum::showScore()
+{
     cout << "学校" << school << "分数如下:" << endl;
     cout << "男总分:" << malesum << endl;
     cout << "女总分:" << femalesum << endl;
     cout << "团体总分:" << totalsum << endl;
 }
 
-
-
-int main(){
+int main()
+{
     // 假设有四条记录
     Grade report[4];
     report[0] = Grade(A, MALE, X, 90);

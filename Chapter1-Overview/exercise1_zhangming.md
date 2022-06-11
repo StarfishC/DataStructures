@@ -4,36 +4,34 @@
 
 ## 1.1 教材习题
 
-### 1.1.1 设计一个算法，自大到小依次输出顺序读入的三个整数 $x,y,z$ 的值
+### 1.1.1 设计一个算法，自大到小依次输出顺序读入的三个整数 x,y,z 的值
 
 > **解答：** _[code 1-1-1.cpp](./src/exercise1_zhangming/1-1-1.cpp)_
 >
 > ```cpp
+> // 或者使用std::swap
+> void swap(int&, int&);
+> 
 > int main()
 > {
 >     int x, y, z;
->     cin >> x >> y >> z;
->     int t;          // 临时变量，用来交换值
->     if(x < y)
->     {
->         t = x;
->         x = y;
->         y = t;
->     }
->     if(x < z)
->     {
->         t = x;
->         x = z;
->         z = t;
->     }
->     if(y < z)
->     {
->         t = y;
->         y = z;
->         z = t;
->     }
->     cout << x << " " << y << " " << z << endl;
+>     std::cin >> x >> y >> z;
+>     int t; // 临时变量，用来交换值
+>     if (x < y)
+>         swap(x, y);
+>     if (x < z)
+>         swap(x, z);
+>     if (y < z)
+>         swap(y, z);
+>     std::cout << x << " " << y << " " << z << std::endl;
 >     return 0;
+> }
+> 
+> inline void swap(int& a, int& b)
+> {
+>     int t = a;
+>     a = b;
+>     b = t;
 > }
 > ```
 
@@ -51,14 +49,15 @@
 >
 > - 顺序存储：把一组数据存放在一片地址相邻的存储单元中，若存储密度太小，会造成空间浪费，访问方便，增删繁琐。（`C/C++`中，数组大小事先是固定的，不易于扩展）
 > - 链式存储：在结点的存储结构中附加指针来存储结点的逻辑关系，适用于经常增删结点而动态变化的数据结构，访问某个结点时，通常需要遍历。
-> - 索引方法：索引法是顺序存储的一种推广，通过建造一个由整数域 $Z$ 映射到存储地址域 $D$ 的索引函数 $Y:Z→D$，把整数索引值 $z$ 映射到结点的存储地址 $d∈D$，从而形成一个存储了一组指针的索引表，每个指针指向存储区域的一个数据结点。
+> - 索引方法：索引法是顺序存储的一种推广，通过建造一个由整数域 Z 映射到存储地址域 D 的索引函数 Y:Z→D，把整数索引值 z 映射到结点的存储地址 d∈D，从而形成一个存储了一组指针的索引表，每个指针指向存储区域的一个数据结点。
 > - 散列方法：作为索引法的一种延伸和扩展，散列法利用散列函数进行索引值的计算，然后通过索引表求出结点的指针地址。其主要思想是根据结点的关键码值来确定其存储地址，利用散列函数的关系把关键码的值映射到存储空间的地址，然后把结点存入次存储单元中。
 
 ### 1.1.4 分析下列程序段中循环语句的执行次数
 
 ```cpp
 i = 0; s = 0; n = 100;
-do{
+do
+{
     i = i + 1;
     s = s + 10*i;
 }while(!((i < n) && (s < n)))
@@ -68,10 +67,11 @@ do{
 >
 > 执行了一次，执行一次后，$i=1，s=10$，使得 `while` 条件结果为 `false`
 
-### 1.1.5 阅读下列算法，指出算法 $A$ 的功能和时间复杂度，其中 $h,g$ 分别是单循环链表中的两个节点指针
+### 1.1.5 阅读下列算法，指出算法 A 的功能和时间复杂度，其中 h,g 分别是单循环链表中的两个结点指针
 
 ```cpp
-void B(int *s, int *q){
+void B(int* s, int* q)
+{
     int *p;
     p = s;
     while(p->next != q)
@@ -79,7 +79,8 @@ void B(int *s, int *q){
     p->next = s;
 }
 
-void A(int *h, int *g){
+void A(int* h, int* g)
+{
     B(h, g);
     B(g, h);
 }
@@ -87,11 +88,11 @@ void A(int *h, int *g){
 
 > **解答：**
 >
-> $A$ 的功能是一个单循环链表以 $h,g$ 为分界，变成两个单循环链表，$h,g$ 分别在两个单循环链表中。
+> A 的功能是一个单循环链表以 h,g 为分界，变成两个单循环链表，h,g 分别在两个单循环链表中。
 >
 > 时间复杂度：由于所有结点只遍历一次，所以时间复杂度为 $O(n)$
 
-### 1.1.6 设 $n$ 是偶数，计算运行下列程序段后 $m$ 的值并给出该程序段的时间复杂度
+### 1.1.6 设 n 是偶数，计算运行下列程序段后 m 的值并给出该程序段的时间复杂度
 
 ```cpp
 m = 0;
@@ -167,7 +168,7 @@ for(i = 1; i <= n; i++)
 > }
 > ```
 
-### 1.1.10 假设计算机的速度为每秒处理 $10^{10}$个操作，已知 $6$ 个算法的时间复杂度如下，要求在一小时内完成计算。试问对每个算法来说可处理的数据规模为多少
+### 1.1.10 假设计算机的速度为每秒处理 $10^{10}$个操作，已知 6 个算法的时间复杂度如下，要求在一小时内完成计算。试问对每个算法来说可处理的数据规模为多少
 
 **（1）$n^2$**  
 **（2）$n^3$**  
@@ -185,7 +186,7 @@ for(i = 1; i <= n; i++)
 > （5）  
 > （6）
 
-### 1.1.11 设有函数 $f(n)$和 $g(n)$，且 $f(n)$在集合 $O(g(n))$中，下面说法中哪些正确，哪些不正确？对正确的说法给出其证明，不正确的说法给出反例
+### 1.1.11 设有函数 f(n)和 g(n)，且 f(n)在集合 O(g(n))中，下面说法中哪些正确，哪些不正确？对正确的说法给出其证明，不正确的说法给出反例
 
 **（1）$\log_2f(n)$ 是 $O(\log_2 g(n))$**  
 **（2）$2^{f(n)}$ 是 $O(2^{g(n)})$**  
@@ -240,18 +241,18 @@ for(i = 1; i <= n; i++)
 
 ## 1.2 教材上机题
 
-### 1.2.1 设 $m,n$ 均为自然数，$m$ 可表示为一些不超过 $n$ 的自然数之和，编写函数 $f(m,n)$计算这种表示方式的数目。例如 $f(5,3)=5$，有五种表示方式：$3+2,3+1+1,2+2+1,2+1+1+1,1+1+1+1+1$
+### 1.2.1 设 m,n 均为自然数，m 可表示为一些不超过 n$的自然数之和，编写函数 f(m,n)计算这种表示方式的数目。例如 f(5,3)=5，有五种表示方式：3+2,3+1+1,2+2+1,2+1+1+1,1+1+1+1+1
 
 ### 1.2.2.试用 `C++`的类声明定义“复数”的抽象数据类型，要求
 
 **（1）在复数内部用浮点数定义其实部和虚部**  
-**（2）实现 $3$ 个构造函数：默认的构造函数没有参数；第二个构造函数将双精度浮点数赋值给复数的实部，虚部置为 $0$；第三个构造函数将两个双精度浮点数分别赋给复数的实部和虚部**  
+**（2）实现 3 个构造函数：默认的构造函数没有参数；第二个构造函数将双精度浮点数赋值给复数的实部，虚部置为 0；第三个构造函数将两个双精度浮点数分别赋给复数的实部和虚部**  
 **（3）定义获取和修改复数的实部和虚部以及$+、-、*、/$等运算的成员函数**  
 **（4）定义重载的流函数来输出一个复数**
 
 ## 1.3《学习指导》教材习题解答
 
-### 1.3.1 设字符集为字母和数字的集合，字符的顺序为 $A,B,C,...,Z,0,1,3...9$,请将下列字符串按字典顺序排列、存储：$PAB,5C,PABC,CXY,CRSI,7,B899,B9$，并分析可以采取的存储方案
+### 1.3.1 设字符集为字母和数字的集合，字符的顺序为 A,B,C,...,Z,0,1,3...9,请将下列字符串按字典顺序排列、存储：PAB,5C,PABC,CXY,CRSI,7,B899,B9，并分析可以采取的存储方案
 
 > **解答：** _[code 1-3-1.cpp](./src/exercise1_zhangming/1-3-1.cpp)_
 >
@@ -269,105 +270,107 @@ for(i = 1; i <= n; i++)
 >    }
 >    ```
 >
->    - 优点：若有后序操作，如增删，则效率高，并且可以使用不连续节点
->    - 缺点：操作过程相对复杂，容易出错，而且排序过程需要从表头开始沿链索一个节点、一个节点地比较搜索，相当费时。
+>    - 优点：若有后序操作，如增删，则效率高，并且可以使用不连续结点
+>    - 缺点：操作过程相对复杂，容易出错，而且排序过程需要从表头开始沿链索一个结点、一个结点地比较搜索，相当费时。
 >
 > 3. 索引存储
->    索引存储是顺序存储的一种推广。使用一个字符串 `char data[500]`，将大小长度不等的数据节点（单词）顺序存储其中。并使用一个字符指针数组 `char *index[n]`存储一系列的指针，每个指针指向存储区域的一个数据节点。排序时，直接对 `index` 中的地址值进行调换修改即可，而不用修改 `data` 中的任何内容。
+>    索引存储是顺序存储的一种推广。使用一个字符串 `char data[500]`，将大小长度不等的数据结点（单词）顺序存储其中。并使用一个字符指针数组 `char *index[n]`存储一系列的指针，每个指针指向存储区域的一个数据结点。排序时，直接对 `index` 中的地址值进行调换修改即可，而不用修改 `data` 中的任何内容。
 >
 >    - 优点：由于单词长度不同，在存储时充分考虑了这个因素，可以节省空间。此外由于交换的不是单词本身二是单词的地址，可以节省时间，从空间和时间两方面得到优化。
 >
 > ```cpp
-> // File:    1-3-1.cpp
-> // Author:  csh
-> // Date:    2020/07/20
-> // Update:  2020/01/16
-> // ===================
->
->
 > #include <iostream>
 > #include <string>
->
+> 
 > using namespace std;
->
->
+> 
 > // 1. 用链表
 > class Node
 > {
->     public:
->         string str;
->         Node *pNext;
->
->         Node(const string s): str(s),pNext(nullptr){}
->         Node(): str(""), pNext(nullptr){}
+> public:
+>     string str;
+>     Node* pNext;
+> 
+>     Node(const string s) :
+>         str(s), pNext(nullptr) {}
+>     Node() :
+>         str(""), pNext(nullptr) {}
 > };
->
+> 
 > /* 链表类 */
 > class LinkList
 > {
->     private:
->         Node *head;
->         int curLen;
->     public:
->         LinkList(): head(new Node()), curLen(0){}
->         ~LinkList();
->         int size() const { return curLen; }
->         bool compare(const string &a, const string &b);     // 比较a,b字符串
->         void append(const string &s);                       // 添加元素并排序
->         void showAll();
+> private:
+>     Node* head;
+>     int curLen;
+> 
+> public:
+>     LinkList() :
+>         head(new Node()), curLen(0) {}
+>     ~LinkList();
+>     int size() const { return curLen; }
+>     bool compare(const string& a, const string& b); // 比较a,b字符串
+>     void append(const string& s); // 添加元素并排序
+>     void showAll();
 > };
->
+> 
 > LinkList::~LinkList()
 > {
->     Node *temp;
->     while(head){
+>     Node* temp;
+>     while (head)
+>     {
 >         temp = head;
 >         head = head->pNext;
 >         delete temp;
 >     }
 > }
->
-> bool LinkList::compare(const string &a, const string &b)
+> 
+> bool LinkList::compare(const string& a, const string& b)
 > {
 >     // 返回true表明b在a前，false表明a在b前
 >     auto i = a.begin();
 >     auto j = b.begin();
->     while(i != a.end() && j != b.end())
+>     while (i != a.end() && j != b.end())
 >     {
 >         // 1. 字符相等
->         if(*i == *j)
+>         if (*i == *j)
 >         {
 >             i++;
 >             j++;
 >             continue;
 >         }
->
+> 
 >         // 2.字符均为A-Z或均为0-9情况
->         if((*i - 'A' >= 0 && *j - 'A' >= 0) || (*i - 'A' < 0 && *j - 'A' < 0))
+>         if ((*i - 'A' >= 0 && *j - 'A' >= 0) || (*i - 'A' < 0 && *j - 'A' < 0))
 >         {
->             if(*i - *j < 0)         // 如B-A>0，A在B前
+>             if (*i - *j < 0) // 如B-A>0，A在B前
 >                 return false;
->             else return true;
->         }else{
->         // 3. 一个字符A-Z，一个0-9
->             if(*i - *j > 0)         // 如A-5>0，A在5前
+>             else
+>                 return true;
+>         }
+>         else
+>         {
+>             // 3. 一个字符A-Z，一个0-9
+>             if (*i - *j > 0) // 如A-5>0，A在5前
 >                 return false;
->             else return true;
+>             else
+>                 return true;
 >         }
 >     }
 >     // 如果a没有迭代完，b迭代完了，b在a前
->     if(*i) return true;
+>     if (*i)
+>         return true;
 >     return false;
 > }
->
-> void LinkList::append(const string &s)
+> 
+> void LinkList::append(const string& s)
 > {
->     Node *current = head->pNext;
->     Node *previous = nullptr;
+>     Node* current = head->pNext;
+>     Node* previous = nullptr;
 >     bool stop = false;
->     while(current != nullptr && not stop)
+>     while (current != nullptr && not stop)
 >     {
->         if(compare(current->str, s))
+>         if (compare(current->str, s))
 >             stop = true;
 >         else
 >         {
@@ -375,13 +378,14 @@ for(i = 1; i <= n; i++)
 >             current = current->pNext;
 >         }
 >     }
->     Node *temp = new Node(s);
->     if(previous == nullptr)
+>     Node* temp = new Node(s);
+>     if (previous == nullptr)
 >     {
 >         // previous没找到，即插入第一个
 >         temp->pNext = head->pNext;
 >         head->pNext = temp;
->     }else
+>     }
+>     else
 >     {
 >         // 在previous和current之间插入
 >         temp->pNext = current;
@@ -389,17 +393,31 @@ for(i = 1; i <= n; i++)
 >     }
 >     curLen++;
 > }
->
-> void LinkList::showAll(){
->     Node *tmp = head->pNext;
->     while(tmp){
+> 
+> void LinkList::showAll()
+> {
+>     Node* tmp = head->pNext;
+>     while (tmp)
+>     {
 >         cout << tmp->str << " --> ";
 >         tmp = tmp->pNext;
 >     }
 > }
+> 
+> int main()
+> {
+>     string a[] = { "PAB", "5C", "PABC", "CRSI", "7", "B899", "CXY", "B9" };
+>     LinkList list = LinkList();
+>     for (int i = 0; i < 8; i++)
+>     {
+>         list.append(a[i]);
+>     }
+>     list.showAll();
+>     return 0;
+> }
 > ```
 
-### 1.3.2 有一个包括 $100$ 个元素的数组，每个元素的值都是实数，请写出求最大元素的值及其位置的算法，讨论它所可能采取的存储结构
+### 1.3.2 有一个包括 100 个元素的数组，每个元素的值都是实数，请写出求最大元素的值及其位置的算法，讨论它所可能采取的存储结构
 
 > **解答：** _[code 1-3-2.cpp](./src/exercise1_zhangming/1-3-2.cpp)_
 >
@@ -407,25 +425,42 @@ for(i = 1; i <= n; i++)
 > 可采用顺序数组，链表和索引。顺序数组最优。
 >
 > ```cpp
-> int* solution(double *A, int N, int *ret)
+> #include <iostream>
+> 
+> int* solution(double* A, int N, int* ret)
 > {
 >     // ret用来记录最大值所在的位置
->     int position = 0;               // 初始化设定数组的第一个元素
->     int j = 1;                      // 控制最大值数组的存放
->     for(int i = 1; i < N; i++)
+>     int position = 0; // 初始化设定数组的第一个元素
+>     int j = 1; // 控制最大值数组的存放
+>     for (int i = 1; i < N; i++)
 >     {
->         if(A[i] > A[position])
+>         if (A[i] > A[position])
 >         {
->             position = i;           // 更新最大值元素的位置
->             j = 1;                  // 重置ret数组的下一个存放位置，0号位置预留给position
+>             position = i; // 更新最大值元素的位置
+>             j = 1; // 重置ret数组的下一个存放位置，0号位置预留给position
 >         }
->         else if(A[i] == A[position])
->             ret[j++] = i;           // 记录重复的最大值位置
+>         else if (A[i] == A[position])
+>             ret[j++] = i; // 记录重复的最大值位置
 >     }
 >     ret[0] = position;
->     if(j < N)
->         ret[j] = -1;                // -1为哨兵，前j个元素均为最大值的位置
+>     if (j < N)
+>         ret[j] = -1; // -1为哨兵，前j个元素均为最大值的位置
 >     return ret;
+> }
+> 
+> int main()
+> {
+>     using namespace std;
+>     double Num[] = { 4529.9, 88, 333, 22, 100, 232.3, 4529.9 };
+>     int N = sizeof(Num) / sizeof(double);
+>     int ret[N];
+>     solution(Num, N, ret);
+>     cout << "MaxNumber:" << Num[*ret] << endl;
+>     cout << "MaxPosition:";
+>     for (int i = 0; ret[i] != -1; i++)
+>         cout << ret[i] << " ";
+>     cout << endl;
+>     return 0;
 > }
 > ```
 
@@ -463,7 +498,8 @@ for(i = 1; i <= n; i++)
 >     优缺点：不用占用整块存储空间。但检索比较复杂。也可采用循环链表。
 >
 >     ```cpp
->     struct Course{
+>     struct Course
+>     {
 >         int no;                 // 课次
 >         char time;              // 时间
 >         char location;          // 上课地点
@@ -471,7 +507,8 @@ for(i = 1; i <= n; i++)
 >         char teacherName;       // 授课老师
 >         struct Course *Cnext;   // 下堂课指针
 >     }
->     struct Days{
+>     struct Days
+>     {
 >         int day;                // 第几天
 >         struct Days *Dnext;     // 下一天
 >         struct Course *courses; // 当天课程
@@ -484,7 +521,7 @@ for(i = 1; i <= n; i++)
 
 ## 1.4《学习指导》增补习题
 
-### 1.4.2 已知斐波那契序列的定义如下，试编写求 $k$ 阶斐波那契序列第 $m$ 项值的函数算法，$k、m$ 均作为该函数的参数
+### 1.4.2 已知斐波那契序列的定义如下，试编写求 k 阶斐波那契序列第 m 项值的函数算法，k、m 均作为该函数的参数
 
 $$
 \begin{aligned}
@@ -575,7 +612,6 @@ $$
 > const int arrsize = 300;
 > const int maxint = INT_MAX;
 >
->
 > bool Solution(int i, int a[])
 > {
 >     if(i < 1 || (i > arrsize))
@@ -660,13 +696,15 @@ $$
 > };
 > ```
 
-### 1.4.7 下列算法对一个 $n$ 位二进制数加 $1$，假如无溢出，该算法的最坏时间复杂度是什么？请分析它的平均时间复杂度
+### 1.4.7 下列算法对一个 n 位二进制数加 1，假如无溢出，该算法的最坏时间复杂度是什么？请分析它的平均时间复杂度
 
 ```c
-void Inc(A[n]){
+void Inc(A[n])
+{
     int i;
     i = n - 1;
-    while(A[i] == 1){
+    while(A[i] == 1)
+    {
         A[i] = 0;
         i = i - 1;
     }
@@ -680,15 +718,17 @@ void Inc(A[n]){
 > 假如无溢出，那么最坏情况是除了最高位为 $0$ 其他位均为 $1$，即循环执行 $n-1$ 次，每次循环两次赋值，循环中一共 $2(n-1)$次赋值操作，循环外两次赋值，一共是 $2n$ 次。最好情况则是最低位为 $0$，不进入循坏，仅两次赋值操作。  
 > 所以平均时间复杂度是 $n+1$，即$O(n)$
 
-### 1.4.9 调用 C 语言函数$f(n)$，回答下列问题
+### 1.4.9 调用 `C` 语言函数 f(n) ，回答下列问题
 
-**（1）试指出$f(n)$值的大小，并写出$f(n)$值的推导过程。**  
-**（2）假定 $n=5$，试指出$f(5)$值得大小和执行$f(5)$时输出结果。**
+**（1）试指出 f(n) 值的大小，并写出 f(n) 值的推导过程。**  
+**（2）假定  n=5 ，试指出 f(5) 值得大小和执行 f(5) 时输出结果。**
 
 ```c
-int f(int n){
+int f(int n)
+{
     int i, j, k, sum = 0;
-    for(i = 1; i < n; i++){
+    for(i = 1; i < n; i++)
+    {
         for(j = n; j > i-1; j--)
             for(k = 1; k < j; k++)
                 sum++;
@@ -721,4 +761,4 @@ int f(int n){
 
 ## 1.5《学习指导》上机题
 
-### 1.5.3 编写算法解决 $Josephus$ 问题：设 $n$ 个人围坐在一个圆桌周围，现在从第 $s$ 个人开始报数，数到第 $m$ 个人，让他出局；然后从出局的下一个人重新开始报数，数到第 $m$ 个人，再让他出局......如此反复直到所有人全部出局位置。对于任意给定的 $n,s,m$，求出这 $n$ 个人的出局序列
+### 1.5.3 编写算法解决 $Josephus$ 问题：设 n 个人围坐在一个圆桌周围，现在从第 s 个人开始报数，数到第 m 个人，让他出局；然后从出局的下一个人重新开始报数，数到第 m 个人，再让他出局......如此反复直到所有人全部出局位置。对于任意给定的 n,s,m，求出这 n 个人的出局序列
